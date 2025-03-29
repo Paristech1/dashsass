@@ -84,8 +84,11 @@ export function TicketList({ tickets, isLoading }: TicketListProps) {
   };
   
   // Select or deselect all visible tickets
-  const toggleSelectAll = (event: React.MouseEvent) => {
-    event.preventDefault();
+  const toggleSelectAll = (event: any) => {
+    // We no longer need this for the onCheckedChange event which passes a boolean instead of MouseEvent
+    if (typeof event.preventDefault === 'function') {
+      event.preventDefault();
+    }
     
     if (selectedTickets.size === filteredTickets.length) {
       setSelectedTickets(new Set());
@@ -273,7 +276,7 @@ export function TicketList({ tickets, isLoading }: TicketListProps) {
             <Checkbox 
               id="select-all"
               checked={selectedTickets.size === filteredTickets.length && filteredTickets.length > 0}
-              onCheckedChange={() => toggleSelectAll({} as React.MouseEvent)}
+              onCheckedChange={toggleSelectAll}
               className="mr-2"
             />
             <label htmlFor="select-all" className="text-sm cursor-pointer">

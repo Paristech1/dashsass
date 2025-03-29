@@ -148,6 +148,8 @@ export function TicketForm({ onSuccess }: TicketFormProps) {
     const impact = form.watch("impact");
     const urgency = form.watch("urgency");
     
+    if (!impact || !urgency) return;
+    
     // Map impact and urgency to numerical values
     const impactValue = impact === "high" ? 3 : impact === "medium" ? 2 : 1;
     const urgencyValue = urgency === "high" ? 3 : urgency === "medium" ? 2 : 1;
@@ -167,7 +169,14 @@ export function TicketForm({ onSuccess }: TicketFormProps) {
       priority = "low";
     }
     
-    form.setValue("priority", priority);
+    // Use timeout to ensure this runs after React's state updates
+    setTimeout(() => {
+      form.setValue("priority", priority, { 
+        shouldValidate: true,
+        shouldDirty: true,
+        shouldTouch: true
+      });
+    }, 0);
   }, [form.watch("impact"), form.watch("urgency")]);
 
   // Submit handler

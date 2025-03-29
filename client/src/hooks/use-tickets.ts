@@ -1,3 +1,4 @@
+import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Ticket } from "@shared/schema";
 import { useAuth } from "@/context/auth-context";
@@ -103,6 +104,8 @@ export function useAllTickets(filters?: { status?: string; priority?: string; re
 // Hook to fetch tickets assigned to or reported by the current user
 export function useMyTickets(filters?: { status?: string; priority?: string }) {
   const { user } = useAuth();
+  
+  // If there's no user, return an empty result
   if (!user) {
     return { 
       data: [], 
@@ -111,44 +114,27 @@ export function useMyTickets(filters?: { status?: string; priority?: string }) {
     };
   }
   
-  // Include both tickets assigned to the user and reported by the user
-  const assigneeQuery = useAllTickets({
-    ...filters,
-    assignedTo: user.id
-  });
+  // Fetch all tickets first (we'll filter client-side to ensure current user)
+  const allTicketsQuery = useAllTickets(filters);
   
-  const reporterQuery = useAllTickets({
-    ...filters,
-    reportedBy: user.id
-  });
-  
-  // Combine and deduplicate the results
-  const isLoading = assigneeQuery.isLoading || reporterQuery.isLoading;
-  const error = assigneeQuery.error || reporterQuery.error;
-  
-  let combinedTickets: Ticket[] = [];
-  if (assigneeQuery.data && reporterQuery.data) {
-    // Combine both result sets
-    const allTickets = [...(assigneeQuery.data || []), ...(reporterQuery.data || [])];
+  // Process results to filter only those related to the current user
+  const processedData = React.useMemo(() => {
+    if (!allTicketsQuery.data || !user) return [];
     
-    // Deduplicate tickets by ID
-    const ticketMap = new Map<number, Ticket>();
-    allTickets.forEach(ticket => {
-      ticketMap.set(ticket.id, ticket);
-    });
-    
-    combinedTickets = Array.from(ticketMap.values());
-    
-    // Sort tickets by creation date (newest first)
-    combinedTickets.sort((a, b) => {
+    // Filter tickets that are either assigned to or reported by the current user
+    return allTicketsQuery.data.filter(ticket => 
+      // Make sure we're strictly comparing with the current user ID
+      ticket.assignedToId === user.id || ticket.reportedById === user.id
+    ).sort((a, b) => {
+      // Sort by creation date (newest first)
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
-  }
+  }, [allTicketsQuery.data, user]);
   
   return {
-    data: combinedTickets,
-    isLoading,
-    error
+    data: processedData,
+    isLoading: allTicketsQuery.isLoading,
+    error: allTicketsQuery.error
   };
 }
 
