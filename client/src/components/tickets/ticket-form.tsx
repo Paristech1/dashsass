@@ -143,7 +143,10 @@ export function TicketForm({ onSuccess }: TicketFormProps) {
     }
   };
 
-  // Calculate priority based on impact and urgency
+  // Calculate suggested priority based on impact and urgency
+  const [suggestedPriority, setSuggestedPriority] = useState("medium");
+  const [manualPriorityOverride, setManualPriorityOverride] = useState(false);
+  
   useEffect(() => {
     const impact = form.watch("impact");
     const urgency = form.watch("urgency");
@@ -157,7 +160,7 @@ export function TicketForm({ onSuccess }: TicketFormProps) {
     // Calculate priority score
     const priorityScore = impactValue * urgencyValue;
     
-    // Set priority based on score
+    // Set suggested priority based on score
     let priority;
     if (priorityScore >= 7) {
       priority = "urgent";
@@ -169,15 +172,13 @@ export function TicketForm({ onSuccess }: TicketFormProps) {
       priority = "low";
     }
     
-    // Use timeout to ensure this runs after React's state updates
-    setTimeout(() => {
-      form.setValue("priority", priority, { 
-        shouldValidate: true,
-        shouldDirty: true,
-        shouldTouch: true
-      });
-    }, 0);
-  }, [form.watch("impact"), form.watch("urgency")]);
+    setSuggestedPriority(priority);
+    
+    // Only auto-update the form value if user hasn't manually changed it
+    if (!manualPriorityOverride) {
+      form.setValue("priority", priority);
+    }
+  }, [form.watch("impact"), form.watch("urgency"), manualPriorityOverride]);
 
   // Submit handler
   const onSubmit = async (data: TicketFormValues) => {
@@ -489,14 +490,61 @@ export function TicketForm({ onSuccess }: TicketFormProps) {
               </FormItem>
             )}
           />
-          <div>
-            <FormLabel>Priority</FormLabel>
-            <div className="flex items-center justify-between bg-gray-100 px-3 py-2 text-sm border border-gray-300 rounded-md text-gray-700 mt-2">
-              <span className="capitalize">{form.watch("priority")}</span>
-              <PriorityBadge priority={form.watch("priority")} />
-            </div>
-            <p className="text-xs text-gray-500 mt-1">Auto-calculated based on impact and urgency</p>
-          </div>
+          <FormField
+            control={form.control}
+            name="priority"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Priority <span className="text-red-500">*</span></FormLabel>
+                <Select
+                  onValueChange={(value) => {
+                    field.onChange(value);
+                    // Mark that the user has manually overridden the priority
+                    setManualPriorityOverride(true);
+                  }}
+                  value={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select priority" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="urgent">Urgent</SelectItem>
+                    <SelectItem value="high">High</SelectItem>
+                    <SelectItem value="medium">Medium</SelectItem>
+                    <SelectItem value="low">Low</SelectItem>
+                  </SelectContent>
+                </Select>
+                <div className="flex items-center mt-2">
+                  <PriorityBadge priority={field.value} />
+                  {manualPriorityOverride && suggestedPriority !== field.value && (
+                    <p className="ml-2 text-xs text-amber-600">
+                      Suggested: <span className="capitalize">{suggestedPriority}</span>
+                    </p>
+                  )}
+                </div>
+                <div className="flex items-center justify-between mt-1">
+                  <p className="text-xs text-gray-500">Auto-calculated from impact/urgency</p>
+                  {manualPriorityOverride && (
+                    <Button 
+                      type="button" 
+                      variant="ghost" 
+                      size="sm" 
+                      className="h-6 text-xs"
+                      onClick={() => {
+                        form.setValue("priority", suggestedPriority);
+                        setManualPriorityOverride(false);
+                      }}
+                    >
+                      Reset to suggested
+                    </Button>
+                  )}
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
 
         {/* Short Description and Description */}
