@@ -34,8 +34,20 @@ import {
   MessageSquare, 
   FileText, 
   Activity,
-  PaperclipIcon
+  PaperclipIcon,
+  AlertCircle
 } from "lucide-react";
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface TicketDetailProps {
   ticketId: string | number;
@@ -48,6 +60,8 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
   const [newComment, setNewComment] = useState("");
   const [isInternalComment, setIsInternalComment] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState<string>("");
+  const [pendingStatus, setPendingStatus] = useState<string | null>(null);
+  const [showStatusConfirmation, setShowStatusConfirmation] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -217,11 +231,37 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
 
   // Handle status change
   const handleStatusChange = (status: string) => {
-    setSelectedStatus(status);
-    updateTicketStatusMutation.mutate({
-      status,
-      updatedById: user?.id || 1, // Default to first user if not logged in
-    });
+    // If status is resolved or closed, show confirmation dialog
+    if (status === 'resolved' || status === 'closed') {
+      setPendingStatus(status);
+      setShowStatusConfirmation(true);
+    } else {
+      // Otherwise update immediately
+      setSelectedStatus(status);
+      updateTicketStatusMutation.mutate({
+        status,
+        updatedById: user?.id || 1, // Default to first user if not logged in
+      });
+    }
+  };
+  
+  // Confirm status change
+  const confirmStatusChange = () => {
+    if (pendingStatus) {
+      setSelectedStatus(pendingStatus);
+      updateTicketStatusMutation.mutate({
+        status: pendingStatus,
+        updatedById: user?.id || 1, // Default to first user if not logged in
+      });
+      setShowStatusConfirmation(false);
+      setPendingStatus(null);
+    }
+  };
+  
+  // Cancel status change
+  const cancelStatusChange = () => {
+    setShowStatusConfirmation(false);
+    setPendingStatus(null);
   };
   
   // Handle file selection
@@ -304,6 +344,29 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
 
   return (
     <div className="space-y-6">
+      {/* Status Update Confirmation Dialog */}
+      <AlertDialog open={showStatusConfirmation} onOpenChange={setShowStatusConfirmation}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center">
+              <AlertCircle className="h-5 w-5 mr-2 text-amber-500" />
+              Confirm Status Change
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to change the ticket status to 
+              <span className="font-semibold mx-1 capitalize">{pendingStatus}</span>?
+              This will effectively {pendingStatus === 'resolved' 
+                ? 'mark the ticket as resolved for the customer' 
+                : 'close the ticket and prevent further updates'}.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={cancelStatusChange}>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmStatusChange}>Yes, Change Status</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+      
       <div className="flex items-center justify-between">
         <Button variant="ghost" onClick={() => navigate("/tickets")}>
           <ArrowLeftIcon className="mr-2 h-4 w-4" />
@@ -600,9 +663,9 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
                     <span className="text-gray-500 text-xs">
                       ({formatDate(log.createdAt)})
                     </span>
-                    {log.action === "updated" && log.details && (
+                    {log.action === "updated" && typeof log.details === 'object' && (
                       <div className="ml-5 mt-1 text-xs text-gray-600">
-                        {formatActivityDetails(typeof log.details === 'object' ? (log.details as Record<string, {from: any, to: any}>) : null)}
+                        {formatActivityDetails(log.details as any)}
                       </div>
                     )}
                   </div>
@@ -716,8 +779,9 @@ function UserName({ userId }: { userId: number }) {
   });
 
   const user = users.find((u: any) => u.id === userId);
+  const name = user?.fullName || `User #${userId}`;
   
-  return <>{user?.fullName || `User #${userId}`}</>;
+  return <>{name}</>;
 }
 
 function formatDate(timestamp: string | Date | null): string {
