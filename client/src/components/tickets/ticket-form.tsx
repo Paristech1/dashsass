@@ -26,7 +26,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { queryClient } from "@/lib/queryClient";
-import { InsertTicket } from "@shared/schema";
+import { InsertTicket, User } from "@shared/schema";
 import { useAuth } from "@/context/auth-context";
 
 // Create ticket schema with validation rules
@@ -60,7 +60,7 @@ export function TicketForm({ onSuccess }: TicketFormProps) {
   const [subCategories, setSubCategories] = useState<string[]>([]);
   
   // Query to fetch users for assignment
-  const { data: users } = useQuery({
+  const { data: users = [] } = useQuery<User[]>({
     queryKey: ['/api/users'],
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
@@ -297,11 +297,15 @@ export function TicketForm({ onSuccess }: TicketFormProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {users?.map((user: any) => (
-                      <SelectItem key={user.id} value={user.id.toString()}>
-                        {user.fullName}
-                      </SelectItem>
-                    ))}
+                    {users && users.length > 0 ? (
+                      users.map((user: any) => (
+                        <SelectItem key={user.id} value={user.id.toString()}>
+                          {user.fullName || user.username || `User ${user.id}`}
+                        </SelectItem>
+                      ))
+                    ) : (
+                      <SelectItem value="" disabled>No users available</SelectItem>
+                    )}
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -309,6 +313,40 @@ export function TicketForm({ onSuccess }: TicketFormProps) {
             )}
           />
         </div>
+        
+        {/* Assignee */}
+        <FormField
+          control={form.control}
+          name="assignedToId"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Assign To</FormLabel>
+              <Select
+                onValueChange={(value) => field.onChange(value ? parseInt(value) : null)}
+                defaultValue={field.value?.toString() || ""}
+              >
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select assignee (optional)" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="">Unassigned</SelectItem>
+                  {users && users.length > 0 ? 
+                    users.map((user) => (
+                      <SelectItem key={user.id} value={user.id.toString()}>
+                        {user.fullName || user.username || `User ${user.id}`}
+                      </SelectItem>
+                    )) : (
+                      <SelectItem value="" disabled>No users available</SelectItem>
+                    )
+                  }
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         {/* Location of Caller and Issue */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
