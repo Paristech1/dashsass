@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/context/auth-context";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Header } from "@/components/layout/header";
+import { NotificationListener } from "@/components/notifications/notification-listener";
 
 // Error boundary for catching runtime errors
 class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean, error: Error | null }> {
@@ -130,6 +131,7 @@ function App() {
       <AuthProvider>
         <ErrorBoundary>
           <Router />
+          <NotificationListener />
           <Toaster />
         </ErrorBoundary>
       </AuthProvider>
