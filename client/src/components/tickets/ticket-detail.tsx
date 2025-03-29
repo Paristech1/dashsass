@@ -602,7 +602,7 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
                     </span>
                     {log.action === "updated" && log.details && (
                       <div className="ml-5 mt-1 text-xs text-gray-600">
-                        {formatActivityDetails(log.details)}
+                        {formatActivityDetails(log.details as Record<string, {from: any, to: any}>)}
                       </div>
                     )}
                   </div>
@@ -666,12 +666,12 @@ function PriorityBadge({ priority }: { priority: string }) {
 }
 
 function UserDisplay({ userId }: { userId: number }) {
-  const { data: users } = useQuery({
+  const { data: users = [] } = useQuery<any[]>({
     queryKey: ['/api/users'],
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 
-  const user = users?.find((u: any) => u.id === userId);
+  const user = users.find((u: any) => u.id === userId);
   
   if (!user) {
     return <span>User #{userId}</span>;
@@ -689,12 +689,12 @@ function UserDisplay({ userId }: { userId: number }) {
 }
 
 function UserAvatar({ userId }: { userId: number }) {
-  const { data: users } = useQuery({
+  const { data: users = [] } = useQuery<any[]>({
     queryKey: ['/api/users'],
     staleTime: 5 * 60 * 1000,
   });
 
-  const user = users?.find((u: any) => u.id === userId);
+  const user = users.find((u: any) => u.id === userId);
   
   return (
     <Avatar className="h-10 w-10">
@@ -710,12 +710,12 @@ function UserAvatar({ userId }: { userId: number }) {
 }
 
 function UserName({ userId }: { userId: number }) {
-  const { data: users } = useQuery({
+  const { data: users = [] } = useQuery<any[]>({
     queryKey: ['/api/users'],
     staleTime: 5 * 60 * 1000,
   });
 
-  const user = users?.find((u: any) => u.id === userId);
+  const user = users.find((u: any) => u.id === userId);
   
   return <>{user?.fullName || `User #${userId}`}</>;
 }
@@ -746,14 +746,14 @@ function formatActivityAction(action: string): string {
   }
 }
 
-function formatActivityDetails(details: any): JSX.Element {
-  if (!details || !details.changes) {
+function formatActivityDetails(details: Record<string, {from: any, to: any}>): JSX.Element {
+  if (!details || typeof details !== 'object') {
     return <></>;
   }
 
   return (
     <>
-      {Object.entries(details.changes).map(([field, change]: [string, any]) => (
+      {Object.entries(details).map(([field, change]: [string, {from: any, to: any}]) => (
         <div key={field}>
           Changed <span className="font-medium">{formatFieldName(field)}</span> from{" "}
           <span className="font-medium">{formatFieldValue(change.from)}</span> to{" "}

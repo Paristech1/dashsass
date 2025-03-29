@@ -1,4 +1,4 @@
-import { TicketCheck, Clock, CheckCircle, PieChart } from "lucide-react";
+import { TicketCheck, Clock, CheckCircle, PieChart, Ticket, TicketX } from "lucide-react";
 import { SummaryCard } from "@/components/dashboard/summary-card";
 import { StatusBreakdownChart } from "@/components/dashboard/status-breakdown";
 import { PriorityChart } from "@/components/dashboard/priority-chart";
@@ -29,11 +29,12 @@ export default function Dashboard() {
         <SummaryCard
           title="Total Tickets"
           value={isLoadingMetrics ? "..." : metrics?.totalTickets || 0}
-          icon={<TicketCheck className="h-6 w-6" />}
+          icon={<Ticket className="h-6 w-6" />}
           trendValue={isLoadingMetrics ? 0 : metrics?.totalTrend.count || 0}
           trendDirection={isLoadingMetrics ? "up" : metrics?.totalTrend.trend || "up"}
           trendLabel="from last week"
           iconBgColor="bg-primary-500"
+          linkPath="/tickets"
         />
         <SummaryCard
           title="Open Tickets"
@@ -43,6 +44,7 @@ export default function Dashboard() {
           trendDirection={isLoadingMetrics ? "down" : metrics?.openTrend.trend || "down"}
           trendLabel="from last week"
           iconBgColor="bg-orange-500"
+          linkPath="/tickets?status=open"
         />
         <SummaryCard
           title="Closed Today"
@@ -52,6 +54,7 @@ export default function Dashboard() {
           trendDirection={isLoadingMetrics ? "up" : metrics?.closedTrend.trend || "up"}
           trendLabel="from yesterday"
           iconBgColor="bg-green-500"
+          linkPath="/tickets?status=closed"
         />
         <SummaryCard
           title="Response Time"
@@ -61,6 +64,7 @@ export default function Dashboard() {
           trendDirection={isLoadingMetrics ? "down" : metrics?.responseTrend.trend || "down"}
           trendLabel="hrs from last week"
           iconBgColor="bg-purple-500"
+          linkPath="/analytics"
         />
       </div>
       

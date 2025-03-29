@@ -1,4 +1,5 @@
 import { ArrowUpIcon, ArrowDownIcon } from "lucide-react";
+import { Link } from "wouter";
 
 interface SummaryCardProps {
   title: string;
@@ -8,6 +9,7 @@ interface SummaryCardProps {
   trendDirection: 'up' | 'down';
   trendLabel: string;
   iconBgColor: string;
+  linkPath?: string;
 }
 
 export function SummaryCard({
@@ -18,12 +20,32 @@ export function SummaryCard({
   trendDirection,
   trendLabel,
   iconBgColor,
+  linkPath,
 }: SummaryCardProps) {
+  // Render the icon container - either as a link or a div
+  const IconContainer = ({ children }: { children: React.ReactNode }) => {
+    if (linkPath) {
+      return (
+        <Link href={linkPath}>
+          <div className={`p-3 rounded-md text-white mr-4 ${iconBgColor} cursor-pointer transition-transform hover:scale-110`} title={`View ${title.toLowerCase()}`}>
+            {children}
+          </div>
+        </Link>
+      );
+    }
+    
+    return (
+      <div className={`p-3 rounded-md text-white mr-4 ${iconBgColor}`}>
+        {children}
+      </div>
+    );
+  };
+  
   return (
     <div className="bg-white rounded-lg shadow-md p-5 flex items-start transition-shadow duration-200 hover:shadow-lg">
-      <div className={`p-3 rounded-md text-white mr-4 ${iconBgColor}`}>
+      <IconContainer>
         {icon}
-      </div>
+      </IconContainer>
       <div>
         <p className="text-sm text-gray-500 mb-1">{title}</p>
         <p className="text-2xl font-semibold text-gray-900 mb-1">{value}</p>

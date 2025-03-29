@@ -12,6 +12,9 @@ interface RecentTicketsProps {
 }
 
 export function RecentTickets({ tickets, isLoading }: RecentTicketsProps) {
+  // Limit display to 4 tickets max
+  const displayTickets = tickets.slice(0, 4);
+  
   return (
     <Card>
       <CardHeader>
@@ -22,7 +25,7 @@ export function RecentTickets({ tickets, isLoading }: RecentTicketsProps) {
           {isLoading ? (
             // Skeleton loading state
             <>
-              {[...Array(3)].map((_, i) => (
+              {[...Array(4)].map((_, i) => (
                 <div key={i} className="py-4 animate-pulse">
                   <div className="flex justify-between">
                     <div className="flex-1 pr-4">
@@ -42,13 +45,15 @@ export function RecentTickets({ tickets, isLoading }: RecentTicketsProps) {
             </>
           ) : (
             <>
-              {tickets.map((ticket) => (
+              {displayTickets.map((ticket) => (
                 <div key={ticket.id} className="py-4">
                   <div className="flex justify-between">
                     <div className="flex-1 pr-4">
-                      <h3 className="text-sm font-medium text-gray-800 truncate" title={ticket.title}>
-                        {ticket.title}
-                      </h3>
+                      <Link href={`/tickets/${ticket.id}`}>
+                        <h3 className="text-sm font-medium text-gray-800 truncate hover:text-primary-600 hover:underline" title={ticket.title}>
+                          {ticket.title}
+                        </h3>
+                      </Link>
                       <div className="text-xs text-gray-500 mb-2">
                         {ticket.ticketNumber} • {formatRelativeTime(ticket.createdAt)}
                       </div>
@@ -63,6 +68,11 @@ export function RecentTickets({ tickets, isLoading }: RecentTicketsProps) {
                   </div>
                 </div>
               ))}
+              {tickets.length === 0 && (
+                <div className="py-8 text-center">
+                  <p className="text-gray-500">No tickets found</p>
+                </div>
+              )}
             </>
           )}
         </div>
