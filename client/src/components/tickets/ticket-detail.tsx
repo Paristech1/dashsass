@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Link, useLocation } from "wouter";
 import { format } from "date-fns";
@@ -48,6 +48,8 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
   const [newComment, setNewComment] = useState("");
   const [isInternalComment, setIsInternalComment] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState<string>("");
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Fetch ticket details
   const {
@@ -162,7 +164,7 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
       content: newComment,
       ticketId: Number(ticketId),
       userId: user?.id || 1, // Default to first user if not logged in
-      isInternal,
+      isInternal: isInternalComment,
     });
   };
 
@@ -173,6 +175,27 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
       status,
       updatedById: user?.id || 1, // Default to first user if not logged in
     });
+  };
+  
+  // Handle file selection
+  const handleFileSelect = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+  
+  // Handle file change
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const filesArray = Array.from(e.target.files);
+      setSelectedFiles(prev => [...prev, ...filesArray]);
+      
+      // Show toast notification for selected files
+      toast({
+        title: "Files Selected",
+        description: `${filesArray.length} file(s) selected for upload`
+      });
+    }
   };
 
   if (isLoadingTicket) {
@@ -433,29 +456,61 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
             />
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  id="internal-comment"
-                  checked={isInternalComment}
-                  onChange={(e) => setIsInternalComment(e.target.checked)}
-                  className="rounded border-gray-300"
-                />
-                <label htmlFor="internal-comment" className="text-sm text-gray-600">
-                  Mark as internal comment
-                </label>
-              </div>
-              <div className="flex space-x-2">
-                <Button variant="outline">
-                  <PaperclipIcon className="h-4 w-4 mr-2" /> Attach Files
-                </Button>
-                <Button 
-                  onClick={handleSubmitComment}
-                  disabled={!newComment.trim() || addCommentMutation.isPending}
-                >
-                  {addCommentMutation.isPending ? "Submitting..." : "Submit Comment"}
-                </Button>
+            <div className="space-y-3">
+              {/* Selected files display */}
+              {selectedFiles.length > 0 && (
+                <div className="bg-gray-50 p-2 rounded border border-gray-200">
+                  <h4 className="text-sm font-medium mb-1">Selected Files:</h4>
+                  <ul className="text-xs text-gray-600">
+                    {selectedFiles.map((file, index) => (
+                      <li key={index} className="flex items-center justify-between py-1">
+                        <span>{file.name} ({(file.size / 1024).toFixed(1)} KB)</span>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-6 w-6 p-0"
+                          onClick={() => setSelectedFiles(files => files.filter((_, i) => i !== index))}
+                        >
+                          ×
+                        </Button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="internal-comment"
+                    checked={isInternalComment}
+                    onChange={(e) => setIsInternalComment(e.target.checked)}
+                    className="rounded border-gray-300"
+                  />
+                  <label htmlFor="internal-comment" className="text-sm text-gray-600">
+                    Mark as internal comment
+                  </label>
+                </div>
+                <div className="flex space-x-2">
+                  <input 
+                    type="file"
+                    ref={fileInputRef}
+                    className="hidden"
+                    onChange={handleFileChange}
+                    multiple
+                    accept="image/*, application/pdf"
+                  />
+                  <Button variant="outline" onClick={handleFileSelect}>
+                    <PaperclipIcon className="h-4 w-4 mr-2" /> Attach Files
+                  </Button>
+                  <Button 
+                    onClick={handleSubmitComment}
+                    disabled={!newComment.trim() || addCommentMutation.isPending}
+                  >
+                    {addCommentMutation.isPending ? "Submitting..." : "Submit Comment"}
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
