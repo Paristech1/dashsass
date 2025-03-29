@@ -216,7 +216,7 @@ export function TicketForm({ onSuccess }: TicketFormProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="">Select a category</SelectItem>
+                    <SelectItem value="none">Select a category</SelectItem>
                     <SelectItem value="software">Software</SelectItem>
                     <SelectItem value="hardware">Hardware</SelectItem>
                     <SelectItem value="network">Network</SelectItem>
@@ -245,7 +245,7 @@ export function TicketForm({ onSuccess }: TicketFormProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="">Select a sub category</SelectItem>
+                    <SelectItem value="none">Select a sub category</SelectItem>
                     {subCategories.map((subCategory) => (
                       <SelectItem key={subCategory} value={subCategory}>
                         {subCategory
