@@ -1,22 +1,15 @@
-import { useState } from "react";
-import { Link, useLocation } from "wouter";
+import { useLocation } from "wouter";
 import { Search, PlusCircle, Bell } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/context/auth-context";
 
 export function Header() {
-  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [, navigate] = useLocation();
   const { user } = useAuth();
 
+  // Direct navigation to ticket creation
   const handleCreateTicket = () => {
-    setIsCreateDialogOpen(false);
     navigate("/tickets/create");
   };
 
@@ -34,11 +27,12 @@ export function Header() {
       </div>
       <div className="flex items-center space-x-4">
         <Button
-          onClick={() => setIsCreateDialogOpen(true)}
-          className="bg-primary-600 hover:bg-primary-700 text-white"
+          onClick={handleCreateTicket}
+          className="bg-primary hover:bg-primary/90 text-white px-5 py-2 text-base font-medium shadow-lg rounded-lg transition-transform hover:scale-105"
+          size="lg"
         >
           <PlusCircle className="h-5 w-5 mr-2" />
-          <span>New Ticket</span>
+          <span>Create Ticket</span>
         </Button>
         <button
           type="button"
@@ -54,25 +48,6 @@ export function Header() {
           className="h-8 w-8 rounded-full cursor-pointer"
         />
       </div>
-
-      {/* Create Ticket Dialog */}
-      <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogTitle>Create New Ticket</DialogTitle>
-          <div className="py-4">
-            <p>Would you like to create a new support ticket?</p>
-          </div>
-          <div className="flex justify-end space-x-2">
-            <Button
-              variant="outline"
-              onClick={() => setIsCreateDialogOpen(false)}
-            >
-              Cancel
-            </Button>
-            <Button onClick={handleCreateTicket}>Create Ticket</Button>
-          </div>
-        </DialogContent>
-      </Dialog>
     </header>
   );
 }

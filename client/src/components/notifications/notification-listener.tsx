@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
 import { Link } from "wouter";
+import { websocketService } from "@/services/websocket-service";
 
 /**
  * NotificationListener component
@@ -13,6 +13,17 @@ import { Link } from "wouter";
 export function NotificationListener() {
   const { toast } = useToast();
   
+  // Connect to the WebSocket server
+  useEffect(() => {
+    // Initialize WebSocket connection
+    websocketService.connect();
+    
+    return () => {
+      // Clean up the connection when component unmounts
+      websocketService.disconnect();
+    };
+  }, []);
+
   // Listen for WebSocket events and show notifications
   useEffect(() => {
     const handleTicketUpdate = (event: CustomEvent) => {
