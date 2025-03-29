@@ -35,7 +35,7 @@ const ticketFormSchema = z.object({
   description: z.string().optional(),
   status: z.string().default("open"),
   priority: z.string().default("medium"),
-  category: z.string().min(1, { message: "Category is required" }),
+  category: z.string().refine(val => val !== "_none", { message: "Category is required" }),
   subCategory: z.string().optional(),
   impact: z.string().default("medium"),
   urgency: z.string().default("medium"),
@@ -82,14 +82,20 @@ export function TicketForm({ onSuccess }: TicketFormProps) {
       configurationItem: "",
       callerLocation: "",
       issueLocation: "",
-      preferredContact: "none",
+      preferredContact: "_none",
     },
   });
 
   // Handle category change to update subcategories
   const handleCategoryChange = (value: string) => {
     form.setValue("category", value);
-    form.setValue("subCategory", ""); // Reset subcategory when category changes
+    form.setValue("subCategory", "_none"); // Reset subcategory when category changes
+    
+    // Skip subcategory population if "_none" is selected
+    if (value === "_none") {
+      setSubCategories([]);
+      return;
+    }
     
     // Set subcategories based on selected category
     switch (value) {
@@ -167,7 +173,15 @@ export function TicketForm({ onSuccess }: TicketFormProps) {
   // Submit handler
   const onSubmit = async (data: TicketFormValues) => {
     try {
-      await apiRequest("POST", "/api/tickets", data);
+      // Transform placeholder values back to empty strings or null
+      const processedData = {
+        ...data,
+        category: data.category === "_none" ? "" : data.category,
+        subCategory: data.subCategory === "_none" ? "" : data.subCategory,
+        preferredContact: data.preferredContact === "_none" ? null : data.preferredContact,
+      };
+      
+      await apiRequest("POST", "/api/tickets", processedData);
       
       // Invalidate queries to refresh data
       queryClient.invalidateQueries({ queryKey: ['/api/tickets'] });
@@ -216,7 +230,7 @@ export function TicketForm({ onSuccess }: TicketFormProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="none">Select a category</SelectItem>
+                    <SelectItem value="_none">Select a category</SelectItem>
                     <SelectItem value="software">Software</SelectItem>
                     <SelectItem value="hardware">Hardware</SelectItem>
                     <SelectItem value="network">Network</SelectItem>
@@ -245,7 +259,7 @@ export function TicketForm({ onSuccess }: TicketFormProps) {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="none">Select a sub category</SelectItem>
+                    <SelectItem value="_none">Select a sub category</SelectItem>
                     {subCategories.map((subCategory) => (
                       <SelectItem key={subCategory} value={subCategory}>
                         {subCategory
@@ -395,7 +409,7 @@ export function TicketForm({ onSuccess }: TicketFormProps) {
               <FormLabel>Preferred Contact</FormLabel>
               <Select
                 onValueChange={field.onChange}
-                defaultValue={field.value || "none"}
+                defaultValue={field.value || "_none"}
               >
                 <FormControl>
                   <SelectTrigger>
@@ -403,7 +417,7 @@ export function TicketForm({ onSuccess }: TicketFormProps) {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="none">-- None --</SelectItem>
+                  <SelectItem value="_none">-- None --</SelectItem>
                   <SelectItem value="email">Email</SelectItem>
                   <SelectItem value="phone">Phone</SelectItem>
                   <SelectItem value="inPerson">In Person</SelectItem>
