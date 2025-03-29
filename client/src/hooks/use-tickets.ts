@@ -103,10 +103,63 @@ export function useAllTickets(filters?: { status?: string; priority?: string; re
 // Hook to fetch tickets assigned to or reported by the current user
 export function useMyTickets(filters?: { status?: string; priority?: string }) {
   const { user } = useAuth();
-  return useAllTickets({
+  if (!user) {
+    return { 
+      data: [], 
+      isLoading: false,
+      error: new Error("User not authenticated")
+    };
+  }
+  
+  // Include both tickets assigned to the user and reported by the user
+  const assigneeQuery = useAllTickets({
     ...filters,
-    reportedBy: user?.id
+    assignedTo: user.id
   });
+  
+  const reporterQuery = useAllTickets({
+    ...filters,
+    reportedBy: user.id
+  });
+  
+  // Combine and deduplicate the results
+  const isLoading = assigneeQuery.isLoading || reporterQuery.isLoading;
+  const error = assigneeQuery.error || reporterQuery.error;
+  
+  let combinedTickets: Ticket[] = [];
+  if (assigneeQuery.data && reporterQuery.data) {
+    // Combine both result sets
+    const allTickets = [...(assigneeQuery.data || []), ...(reporterQuery.data || [])];
+    
+    // Deduplicate tickets by ID
+    const ticketMap = new Map<number, Ticket>();
+    allTickets.forEach(ticket => {
+      ticketMap.set(ticket.id, ticket);
+    });
+    
+    combinedTickets = Array.from(ticketMap.values());
+    
+    // Sort tickets by creation date (newest first)
+    combinedTickets.sort((a, b) => {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
+  }
+  
+  return {
+    data: combinedTickets,
+    isLoading,
+    error
+  };
+}
+
+// Hook to get the count of user's tickets
+export function useMyTicketsCount() {
+  const myTicketsQuery = useMyTickets();
+  return {
+    count: myTicketsQuery.data?.length || 0,
+    isLoading: myTicketsQuery.isLoading,
+    error: myTicketsQuery.error
+  };
 }
 
 // Hook to fetch a single ticket by ID

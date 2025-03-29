@@ -10,10 +10,39 @@ import {
   Bell,
   Settings,
 } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { Badge } from "@/components/ui/badge";
 
 export function Sidebar() {
   const [location] = useLocation();
   const { user } = useAuth();
+  
+  // Get tickets count for the current user
+  const ticketCountQuery = useQuery<number>({
+    queryKey: ['/api/tickets/count'],
+    enabled: !!user,
+    queryFn: async () => {
+      if (!user) return 0;
+      
+      try {
+        // Get all tickets
+        const response = await fetch('/api/tickets');
+        if (!response.ok) return 0;
+        
+        const tickets = await response.json();
+        
+        // Count tickets that are either assigned to or reported by the current user
+        const userTicketsCount = tickets.filter((ticket: any) => 
+          ticket.assignedToId === user.id || ticket.reportedById === user.id
+        ).length;
+        
+        return userTicketsCount;
+      } catch (error) {
+        console.error("Error fetching ticket count:", error);
+        return 0;
+      }
+    }
+  });
 
   // Navigation items
   const navItems = [
@@ -26,6 +55,7 @@ export function Sidebar() {
       href: "/tickets",
       label: "My Tickets",
       icon: <Inbox className="h-5 w-5 mr-3" />,
+      badge: !ticketCountQuery.isLoading && ticketCountQuery.data && ticketCountQuery.data > 0 ? ticketCountQuery.data : null,
     },
     {
       href: "/tickets/all",
@@ -91,14 +121,21 @@ export function Sidebar() {
           <Link
             key={item.href}
             href={item.href}
-            className={`flex items-center px-4 py-2.5 text-sm font-medium rounded-md mb-1 transition-colors duration-200 ${
+            className={`flex items-center justify-between px-4 py-2.5 text-sm font-medium rounded-md mb-1 transition-colors duration-200 ${
               isActive(item.href)
                 ? "bg-primary-50 text-primary-700"
                 : "text-gray-700 hover:bg-primary-50 hover:text-primary-700"
             }`}
           >
-            {item.icon}
-            {item.label}
+            <div className="flex items-center">
+              {item.icon}
+              {item.label}
+            </div>
+            {item.badge && (
+              <Badge variant="secondary" className="bg-primary-100 text-primary-800 hover:bg-primary-200">
+                {item.badge}
+              </Badge>
+            )}
           </Link>
         ))}
 

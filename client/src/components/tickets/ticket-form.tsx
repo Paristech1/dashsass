@@ -78,7 +78,7 @@ export function TicketForm({ onSuccess }: TicketFormProps) {
       impact: "medium",
       urgency: "medium",
       assignedToId: null,
-      reportedById: user?.id || 4, // Default to current user or sample user if not logged in
+      reportedById: user?.id || 1, // Default to current user (John Smith) if not properly authenticated
       configurationItem: "",
       callerLocation: "",
       issueLocation: "",
