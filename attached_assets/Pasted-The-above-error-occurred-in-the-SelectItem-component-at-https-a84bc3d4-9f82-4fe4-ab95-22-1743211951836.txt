@@ -1,0 +1,175 @@
+The above error occurred in the <SelectItem> component:
+
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js?v=153d133d:3092:7
+    at _c11 (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/src/components/ui/select.tsx:207:13)
+    at div
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RLTE5R7I.js?v=153d133d:41:13
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js?v=153d133d:52:11
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js?v=153d133d:33:11
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-MRB2OOEX.js?v=153d133d:98:15
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js?v=153d133d:3003:13
+    at div
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js?v=153d133d:52:11
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js?v=153d133d:33:11
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-MRB2OOEX.js?v=153d133d:98:15
+    at Provider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-LSQNWB54.js?v=153d133d:38:15)
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js?v=153d133d:2547:59
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js?v=153d133d:52:11
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js?v=153d133d:33:11
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RLTE5R7I.js?v=153d133d:41:13
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-JS7YF3BW.js?v=153d133d:260:22
+    at SelectPortal
+    at _c7 (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/src/components/ui/select.tsx:122:12)
+    at Provider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-LSQNWB54.js?v=153d133d:38:15)
+    at Provider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-MRB2OOEX.js?v=153d133d:28:15)
+    at CollectionProvider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-MRB2OOEX.js?v=153d133d:89:13)
+    at Provider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-LSQNWB54.js?v=153d133d:38:15)
+    at Provider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js?v=153d133d:1950:15)
+    at Popper (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js?v=153d133d:2044:11)
+    at Select (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js?v=153d133d:2335:5)
+    at div
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/src/components/ui/form.tsx:71:6
+    at Controller (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-YABUFNLM.js?v=153d133d:313:35)
+    at FormField (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/src/components/ui/form.tsx:32:6)
+    at div
+    at form
+    at FormProvider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-YABUFNLM.js?v=153d133d:102:11)
+    at TicketForm…
+Application error: 
+Error {}
+ 
+Object {componentStack: "↵    at…"}
+
+The above error occurred in the <SelectItem> component:
+
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js?v=153d133d:3092:7
+    at _c11 (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/src/components/ui/select.tsx:207:13)
+    at div
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RLTE5R7I.js?v=153d133d:41:13
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js?v=153d133d:52:11
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js?v=153d133d:33:11
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-MRB2OOEX.js?v=153d133d:98:15
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js?v=153d133d:3003:13
+    at div
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js?v=153d133d:52:11
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js?v=153d133d:33:11
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-MRB2OOEX.js?v=153d133d:98:15
+    at Provider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-LSQNWB54.js?v=153d133d:38:15)
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js?v=153d133d:2547:59
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js?v=153d133d:52:11
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js?v=153d133d:33:11
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RLTE5R7I.js?v=153d133d:41:13
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-JS7YF3BW.js?v=153d133d:260:22
+    at SelectPortal
+    at _c7 (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/src/components/ui/select.tsx:122:12)
+    at Provider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-LSQNWB54.js?v=153d133d:38:15)
+    at Provider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-MRB2OOEX.js?v=153d133d:28:15)
+    at CollectionProvider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-MRB2OOEX.js?v=153d133d:89:13)
+    at Provider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-LSQNWB54.js?v=153d133d:38:15)
+    at Provider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js?v=153d133d:1950:15)
+    at Popper (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js?v=153d133d:2044:11)
+    at Select (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js?v=153d133d:2335:5)
+    at div
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/src/components/ui/form.tsx:71:6
+    at Controller (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-YABUFNLM.js?v=153d133d:313:35)
+    at FormField (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/src/components/ui/form.tsx:32:6)
+    at div
+    at form
+    at FormProvider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-YABUFNLM.js?v=153d133d:102:11)
+    at TicketForm…
+Application error: 
+Error {}
+ 
+Object {componentStack: "↵    at…"}
+
+The above error occurred in the <SelectItem> component:
+
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js?v=153d133d:3092:7
+    at _c11 (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/src/components/ui/select.tsx:207:13)
+    at div
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RLTE5R7I.js?v=153d133d:41:13
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js?v=153d133d:52:11
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js?v=153d133d:33:11
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-MRB2OOEX.js?v=153d133d:98:15
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js?v=153d133d:3003:13
+    at div
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js?v=153d133d:52:11
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js?v=153d133d:33:11
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-MRB2OOEX.js?v=153d133d:98:15
+    at Provider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-LSQNWB54.js?v=153d133d:38:15)
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js?v=153d133d:2547:59
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js?v=153d133d:52:11
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js?v=153d133d:33:11
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RLTE5R7I.js?v=153d133d:41:13
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-JS7YF3BW.js?v=153d133d:260:22
+    at SelectPortal
+    at _c7 (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/src/components/ui/select.tsx:122:12)
+    at Provider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-LSQNWB54.js?v=153d133d:38:15)
+    at Provider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-MRB2OOEX.js?v=153d133d:28:15)
+    at CollectionProvider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-MRB2OOEX.js?v=153d133d:89:13)
+    at Provider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-LSQNWB54.js?v=153d133d:38:15)
+    at Provider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js?v=153d133d:1950:15)
+    at Popper (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js?v=153d133d:2044:11)
+    at Select (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js?v=153d133d:2335:5)
+    at div
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/src/components/ui/form.tsx:71:6
+    at Controller (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-YABUFNLM.js?v=153d133d:313:35)
+    at FormField (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/src/components/ui/form.tsx:32:6)
+    at form
+    at FormProvider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-YABUFNLM.js?v=153d133d:102:11)
+    at TicketForm…
+Application error: 
+Error {}
+ 
+Object {componentStack: "↵    at…"}
+
+The above error occurred in the <SelectItem> component:
+
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js?v=153d133d:3092:7
+    at _c11 (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/src/components/ui/select.tsx:207:13)
+    at div
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RLTE5R7I.js?v=153d133d:41:13
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js?v=153d133d:52:11
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js?v=153d133d:33:11
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-MRB2OOEX.js?v=153d133d:98:15
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js?v=153d133d:3003:13
+    at div
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js?v=153d133d:52:11
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js?v=153d133d:33:11
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-MRB2OOEX.js?v=153d133d:98:15
+    at Provider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-LSQNWB54.js?v=153d133d:38:15)
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js?v=153d133d:2547:59
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js?v=153d133d:52:11
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-UACHJROW.js?v=153d133d:33:11
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-RLTE5R7I.js?v=153d133d:41:13
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-JS7YF3BW.js?v=153d133d:260:22
+    at SelectPortal
+    at _c7 (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/src/components/ui/select.tsx:122:12)
+    at Provider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-LSQNWB54.js?v=153d133d:38:15)
+    at Provider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-MRB2OOEX.js?v=153d133d:28:15)
+    at CollectionProvider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-MRB2OOEX.js?v=153d133d:89:13)
+    at Provider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-LSQNWB54.js?v=153d133d:38:15)
+    at Provider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js?v=153d133d:1950:15)
+    at Popper (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js?v=153d133d:2044:11)
+    at Select (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-select.js?v=153d133d:2335:5)
+    at div
+    at https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/src/components/ui/form.tsx:71:6
+    at Controller (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-YABUFNLM.js?v=153d133d:313:35)
+    at FormField (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/src/components/ui/form.tsx:32:6)
+    at form
+    at FormProvider (https://a84bc3d4-9f82-4fe4-ab95-227fe25e86e1-00-1hllmy5klwv79.riker.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-YABUFNLM.js?v=153d133d:102:11)
+    at TicketForm…
+Application error: 
+Error {}
+ 
+Object {componentStack: "↵    at…"}
+
+WebSocket connection closed
+Attempting to reconnect (1/5)...
+WebSocket connection established
+Something went wrong
+The application encountered an unexpected error.
+
+A <Select.Item /> must have a value prop that is not an empty string. This is because the Select value can be set to an empty string to clear the selection and show the placeholder.
+Reload Application
+0

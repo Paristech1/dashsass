@@ -304,7 +304,7 @@ export function TicketForm({ onSuccess }: TicketFormProps) {
                         </SelectItem>
                       ))
                     ) : (
-                      <SelectItem value="" disabled>No users available</SelectItem>
+                      <div className="p-2 text-sm text-gray-500">No users available</div>
                     )}
                   </SelectContent>
                 </Select>
@@ -322,8 +322,8 @@ export function TicketForm({ onSuccess }: TicketFormProps) {
             <FormItem>
               <FormLabel>Assign To</FormLabel>
               <Select
-                onValueChange={(value) => field.onChange(value ? parseInt(value) : null)}
-                defaultValue={field.value?.toString() || ""}
+                onValueChange={(value) => field.onChange(value === "unassigned" ? null : parseInt(value))}
+                defaultValue={field.value?.toString() || "unassigned"}
               >
                 <FormControl>
                   <SelectTrigger>
@@ -331,14 +331,14 @@ export function TicketForm({ onSuccess }: TicketFormProps) {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="">Unassigned</SelectItem>
+                  <SelectItem value="unassigned">Unassigned</SelectItem>
                   {users && users.length > 0 ? 
                     users.map((user) => (
                       <SelectItem key={user.id} value={user.id.toString()}>
                         {user.fullName || user.username || `User ${user.id}`}
                       </SelectItem>
                     )) : (
-                      <SelectItem value="" disabled>No users available</SelectItem>
+                      <div className="p-2 text-sm text-gray-500">No users available</div>
                     )
                   }
                 </SelectContent>
