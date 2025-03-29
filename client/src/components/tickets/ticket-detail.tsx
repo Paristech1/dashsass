@@ -132,6 +132,30 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
       });
     },
   });
+  
+  // Upload attachments mutation
+  const uploadAttachmentsMutation = useMutation({
+    mutationFn: async (data: { files: Array<{ name: string; size: number; type: string }>; userId: number }) => {
+      return apiRequest("POST", `/api/tickets/${ticketId}/attachments`, data);
+    },
+    onSuccess: () => {
+      setSelectedFiles([]);
+      queryClient.invalidateQueries({ queryKey: [`/api/tickets/${ticketId}`] });
+      queryClient.invalidateQueries({ queryKey: [`/api/tickets/${ticketId}/activity`] });
+      toast({
+        title: "Files Uploaded",
+        description: "Your files have been attached to the ticket",
+      });
+    },
+    onError: (error) => {
+      console.error("Error uploading files:", error);
+      toast({
+        title: "Error",
+        description: "Failed to upload files. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
 
   // Update ticket status mutation
   const updateTicketStatusMutation = useMutation({
@@ -158,14 +182,37 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
 
   // Handle comment submission
   const handleSubmitComment = () => {
-    if (!newComment.trim()) return;
+    const hasComment = newComment.trim().length > 0;
+    const hasFiles = selectedFiles.length > 0;
     
-    addCommentMutation.mutate({
-      content: newComment,
-      ticketId: Number(ticketId),
-      userId: user?.id || 1, // Default to first user if not logged in
-      isInternal: isInternalComment,
-    });
+    // If neither comment nor files, do nothing
+    if (!hasComment && !hasFiles) return;
+    
+    // Add comment if there's text
+    if (hasComment) {
+      addCommentMutation.mutate({
+        content: newComment,
+        ticketId: Number(ticketId),
+        userId: user?.id || 1, // Default to first user if not logged in
+        isInternal: isInternalComment,
+      });
+    }
+    
+    // Upload files if any are selected
+    if (hasFiles) {
+      // Prepare files info for upload - we don't actually send the file data in this mock implementation
+      // In a real app, you'd use FormData to upload the actual files
+      const filesInfo = selectedFiles.map(file => ({
+        name: file.name,
+        size: file.size,
+        type: file.type
+      }));
+      
+      uploadAttachmentsMutation.mutate({
+        files: filesInfo,
+        userId: user?.id || 1, // Default to first user if not logged in
+      });
+    }
   };
 
   // Handle status change
@@ -506,9 +553,14 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
                   </Button>
                   <Button 
                     onClick={handleSubmitComment}
-                    disabled={!newComment.trim() || addCommentMutation.isPending}
+                    disabled={(selectedFiles.length === 0 && !newComment.trim()) || 
+                             addCommentMutation.isPending || 
+                             uploadAttachmentsMutation.isPending}
                   >
-                    {addCommentMutation.isPending ? "Submitting..." : "Submit Comment"}
+                    {addCommentMutation.isPending || uploadAttachmentsMutation.isPending ? 
+                      "Submitting..." : 
+                      selectedFiles.length > 0 && !newComment.trim() ? 
+                        "Upload Files" : "Submit"}
                   </Button>
                 </div>
               </div>

@@ -297,6 +297,66 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // ===== ATTACHMENTS ENDPOINTS =====
+  
+  // Add attachment to a ticket
+  router.post("/tickets/:id/attachments", async (req: Request, res: Response) => {
+    try {
+      const ticketId = parseInt(req.params.id);
+      const userId = req.body.userId || 1; // Default to first user if not logged in
+      
+      if (!req.body.files || !Array.isArray(req.body.files) || req.body.files.length === 0) {
+        return res.status(400).json({ error: "No files provided" });
+      }
+      
+      const result = [];
+      for (const file of req.body.files) {
+        // In a real implementation, you would handle file uploads properly
+        // For this demo, we'll just mock the file storage
+        const newAttachment = await storage.createAttachment({
+          ticketId,
+          filename: file.name,
+          fileType: file.type,
+          fileSize: file.size,
+          path: `/uploads/${file.name}`, // This would be a real path in production
+          uploadedById: userId
+        });
+        
+        result.push(newAttachment);
+        
+        // Add activity log for attachment
+        await storage.createActivityLog({
+          ticketId,
+          userId,
+          action: "attached_file",
+          details: { filename: file.name }
+        });
+      }
+      
+      // Broadcast ticket update to WebSocket clients
+      const ticket = await storage.getTicket(ticketId);
+      if (ticket) {
+        broadcastTicketUpdate('update', ticket);
+      }
+      
+      res.status(201).json(result);
+    } catch (error) {
+      console.error("Error adding attachments:", error);
+      res.status(500).json({ error: "Failed to add attachments" });
+    }
+  });
+  
+  // Get ticket attachments
+  router.get("/tickets/:id/attachments", async (req: Request, res: Response) => {
+    try {
+      const ticketId = parseInt(req.params.id);
+      const attachments = await storage.getTicketAttachments(ticketId);
+      res.json(attachments);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch attachments" });
+    }
+  });
+  
   // ===== KNOWLEDGE BASE ENDPOINTS =====
   
   // Get all knowledge base articles
