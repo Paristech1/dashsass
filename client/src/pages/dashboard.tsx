@@ -35,7 +35,7 @@ export default function Dashboard() {
           trendDirection={isLoadingMetrics ? "up" : metrics?.totalTrend.trend || "up"}
           trendLabel="from last week"
           iconBgColor="bg-primary-500"
-          linkPath="/tickets"
+          linkPath="/tickets/all"
         />
         <SummaryCard
           title="Open Tickets"
@@ -45,7 +45,7 @@ export default function Dashboard() {
           trendDirection={isLoadingMetrics ? "down" : metrics?.openTrend.trend || "down"}
           trendLabel="from last week"
           iconBgColor="bg-orange-500"
-          linkPath="/tickets?status=open"
+          linkPath="/tickets/all?status=open"
         />
         <SummaryCard
           title="Closed Today"
@@ -55,7 +55,7 @@ export default function Dashboard() {
           trendDirection={isLoadingMetrics ? "up" : metrics?.closedTrend.trend || "up"}
           trendLabel="from yesterday"
           iconBgColor="bg-green-500"
-          linkPath="/tickets?status=closed"
+          linkPath="/tickets/all?status=closed"
         />
         <SummaryCard
           title="Response Time"

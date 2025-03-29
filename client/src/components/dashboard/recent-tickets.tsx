@@ -79,7 +79,7 @@ export function RecentTickets({ tickets, isLoading }: RecentTicketsProps) {
       </CardContent>
       <CardFooter className="flex justify-center">
         <Button variant="outline" asChild>
-          <Link href="/tickets">View All Tickets</Link>
+          <Link href="/tickets/all">View All Tickets</Link>
         </Button>
       </CardFooter>
     </Card>

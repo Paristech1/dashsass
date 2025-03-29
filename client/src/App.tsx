@@ -52,7 +52,8 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
 
 // Lazy-load pages
 const Dashboard = lazy(() => import("@/pages/dashboard"));
-const TicketsList = lazy(() => import("@/pages/tickets/index"));
+const MyTickets = lazy(() => import("@/pages/tickets/index"));
+const AllTickets = lazy(() => import("@/pages/tickets/all"));
 const CreateTicket = lazy(() => import("@/pages/tickets/create"));
 const TicketDetail = lazy(() => import("@/pages/tickets/detail"));
 const KnowledgeBase = lazy(() => import("@/pages/knowledge-base"));
@@ -86,14 +87,9 @@ function Layout({ children }: { children: React.ReactNode }) {
 function Router() {
   return (
     <Switch>
-      <Route path="/">
+      <Route path="/tickets/all">
         <Layout>
-          <Dashboard />
-        </Layout>
-      </Route>
-      <Route path="/tickets">
-        <Layout>
-          <TicketsList />
+          <AllTickets />
         </Layout>
       </Route>
       <Route path="/tickets/create">
@@ -108,6 +104,11 @@ function Router() {
           </Layout>
         )}
       </Route>
+      <Route path="/tickets">
+        <Layout>
+          <MyTickets />
+        </Layout>
+      </Route>
       <Route path="/knowledge-base">
         <Layout>
           <KnowledgeBase />
@@ -116,6 +117,11 @@ function Router() {
       <Route path="/team">
         <Layout>
           <TeamPage />
+        </Layout>
+      </Route>
+      <Route path="/">
+        <Layout>
+          <Dashboard />
         </Layout>
       </Route>
       <Route>

@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Ticket } from "@shared/schema";
+import { useAuth } from "@/context/auth-context";
 
 export interface DashboardMetrics {
   totalTickets: number;
@@ -70,7 +71,7 @@ export function useRecentTickets(limit: number = 5) {
 }
 
 // Hook to fetch all tickets
-export function useAllTickets(filters?: { status?: string; priority?: string }) {
+export function useAllTickets(filters?: { status?: string; priority?: string; reportedBy?: number; assignedTo?: number }) {
   let queryString = '/api/tickets';
   const queryParams: string[] = [];
   
@@ -82,12 +83,29 @@ export function useAllTickets(filters?: { status?: string; priority?: string }) 
     queryParams.push(`priority=${filters.priority}`);
   }
   
+  if (filters?.reportedBy) {
+    queryParams.push(`reportedBy=${filters.reportedBy}`);
+  }
+  
+  if (filters?.assignedTo) {
+    queryParams.push(`assignedTo=${filters.assignedTo}`);
+  }
+  
   if (queryParams.length > 0) {
     queryString += `?${queryParams.join('&')}`;
   }
   
   return useQuery<Ticket[]>({
     queryKey: [queryString],
+  });
+}
+
+// Hook to fetch tickets assigned to or reported by the current user
+export function useMyTickets(filters?: { status?: string; priority?: string }) {
+  const { user } = useAuth();
+  return useAllTickets({
+    ...filters,
+    reportedBy: user?.id
   });
 }
 
