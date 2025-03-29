@@ -1,4 +1,4 @@
-import { Suspense, lazy, Component, ReactNode } from "react";
+import { Suspense, lazy, Component, ReactNode, startTransition } from "react";
 import { Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";

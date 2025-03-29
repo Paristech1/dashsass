@@ -1,5 +1,5 @@
 import { useLocation, Link } from "wouter";
-import { useState } from "react";
+import { useState, startTransition } from "react";
 import { Search, PlusCircle, Bell, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,13 +18,17 @@ export function Header() {
 
   // Toggle notifications panel
   const toggleNotifications = () => {
-    setNotificationsOpen(!notificationsOpen);
+    startTransition(() => {
+      setNotificationsOpen(!notificationsOpen);
+    });
   };
 
   // Clear all notifications
   const clearNotifications = () => {
-    setHasNotifications(false);
-    setNotificationsOpen(false);
+    startTransition(() => {
+      setHasNotifications(false);
+      setNotificationsOpen(false);
+    });
   };
 
   return (

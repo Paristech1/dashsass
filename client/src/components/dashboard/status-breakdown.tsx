@@ -41,8 +41,8 @@ export function StatusBreakdownChart({ data, isLoading }: StatusBreakdownChartPr
         </CardHeader>
         <CardContent>
           <div className="space-y-4 animate-pulse">
-            {[...Array(5)].map((_, i) => (
-              <div key={i}>
+            {[1, 2, 3, 4, 5].map((index) => (
+              <div key={`status-loading-${index}`}>
                 <div className="flex justify-between text-sm mb-1">
                   <div className="h-4 bg-gray-200 rounded w-24"></div>
                   <div className="h-4 bg-gray-200 rounded w-32"></div>
@@ -50,7 +50,7 @@ export function StatusBreakdownChart({ data, isLoading }: StatusBreakdownChartPr
                 <div className="h-2 bg-gray-200 rounded-full">
                   <div
                     className="h-2 bg-gray-300 rounded-full"
-                    style={{ width: `${Math.random() * 100}%` }}
+                    style={{ width: `${(index * 20)}%` }}
                   ></div>
                 </div>
               </div>

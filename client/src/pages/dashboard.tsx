@@ -4,6 +4,7 @@ import { StatusBreakdownChart } from "@/components/dashboard/status-breakdown";
 import { PriorityChart } from "@/components/dashboard/priority-chart";
 import { RecentTickets } from "@/components/dashboard/recent-tickets";
 import { TeamPerformance } from "@/components/dashboard/team-performance";
+import { Suspense, startTransition } from "react";
 import { 
   useDashboardMetrics, 
   useTicketStatusBreakdown, 

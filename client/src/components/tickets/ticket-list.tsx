@@ -31,15 +31,22 @@ export function TicketList({ tickets, isLoading }: TicketListProps) {
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   // Filter tickets based on filters and search
-  const filteredTickets = tickets.filter(ticket => {
-    const matchesStatus = statusFilter === "all" || ticket.status === statusFilter;
-    const matchesPriority = priorityFilter === "all" || ticket.priority === priorityFilter;
-    const matchesSearch = !searchQuery || 
-      ticket.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      ticket.ticketNumber.toLowerCase().includes(searchQuery.toLowerCase());
-    
-    return matchesStatus && matchesPriority && matchesSearch;
-  });
+  const filteredTickets = tickets
+    .filter(ticket => {
+      const matchesStatus = statusFilter === "all" || ticket.status === statusFilter;
+      const matchesPriority = priorityFilter === "all" || ticket.priority === priorityFilter;
+      const matchesSearch = !searchQuery || 
+        ticket.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        ticket.ticketNumber.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      return matchesStatus && matchesPriority && matchesSearch;
+    })
+    // Sort tickets in descending order by createdAt date (most recent first)
+    .sort((a, b) => {
+      const dateA = new Date(a.createdAt).getTime();
+      const dateB = new Date(b.createdAt).getTime();
+      return dateB - dateA;
+    });
 
   if (isLoading) {
     return (
@@ -56,8 +63,8 @@ export function TicketList({ tickets, isLoading }: TicketListProps) {
         <CardContent>
           {/* Ticket list skeleton */}
           <div className="space-y-4">
-            {[...Array(5)].map((_, index) => (
-              <div key={index} className="p-4 border rounded-md animate-pulse">
+            {[1, 2, 3, 4, 5].map((index) => (
+              <div key={`ticket-skeleton-${index}`} className="p-4 border rounded-md animate-pulse">
                 <div className="flex justify-between">
                   <div className="space-y-2">
                     <div className="h-5 bg-gray-200 rounded w-40"></div>

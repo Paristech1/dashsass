@@ -602,7 +602,7 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
                     </span>
                     {log.action === "updated" && log.details && (
                       <div className="ml-5 mt-1 text-xs text-gray-600">
-                        {formatActivityDetails(log.details as Record<string, {from: any, to: any}>)}
+                        {formatActivityDetails(typeof log.details === 'object' ? (log.details as Record<string, {from: any, to: any}>) : null)}
                       </div>
                     )}
                   </div>
@@ -746,7 +746,7 @@ function formatActivityAction(action: string): string {
   }
 }
 
-function formatActivityDetails(details: Record<string, {from: any, to: any}>): JSX.Element {
+function formatActivityDetails(details: Record<string, {from: any, to: any}> | null | undefined): JSX.Element {
   if (!details || typeof details !== 'object') {
     return <></>;
   }
