@@ -8,8 +8,8 @@ interface PriorityChartProps {
 }
 
 export function PriorityChart({ data, isLoading }: PriorityChartProps) {
-  // Formatting the data for the chart
-  const chartData = data.map((item) => ({
+  // Formatting the data for the chart with null checks
+  const chartData = data.filter(item => item && item.priority).map((item) => ({
     name: item.priority.charAt(0).toUpperCase() + item.priority.slice(1),
     value: item.count,
     fill: getPriorityColor(item.priority),

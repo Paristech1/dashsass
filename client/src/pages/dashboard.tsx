@@ -13,12 +13,12 @@ import {
 } from "@/hooks/use-tickets";
 
 export default function Dashboard() {
-  // Fetch dashboard data
-  const { data: metrics, isLoading: isLoadingMetrics } = useDashboardMetrics();
-  const { data: statusBreakdown, isLoading: isLoadingStatusBreakdown } = useTicketStatusBreakdown();
-  const { data: priorityDistribution, isLoading: isLoadingPriorityDistribution } = useTicketPriorityDistribution();
-  const { data: recentTickets, isLoading: isLoadingRecentTickets } = useRecentTickets();
-  const { data: teamPerformance, isLoading: isLoadingTeamPerformance } = useTeamPerformance();
+  // Fetch dashboard data with error handling
+  const { data: metrics, isLoading: isLoadingMetrics, error: metricsError } = useDashboardMetrics();
+  const { data: statusBreakdown = [], isLoading: isLoadingStatusBreakdown } = useTicketStatusBreakdown();
+  const { data: priorityDistribution = [], isLoading: isLoadingPriorityDistribution } = useTicketPriorityDistribution();
+  const { data: recentTickets = [], isLoading: isLoadingRecentTickets } = useRecentTickets();
+  const { data: teamPerformance = [], isLoading: isLoadingTeamPerformance } = useTeamPerformance();
 
   return (
     <div className="space-y-6">
