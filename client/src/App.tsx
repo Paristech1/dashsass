@@ -59,6 +59,9 @@ const TicketDetail = lazy(() => import("@/pages/tickets/detail"));
 const KnowledgeBase = lazy(() => import("@/pages/knowledge-base"));
 const TeamPage = lazy(() => import("@/pages/team"));
 const NotFound = lazy(() => import("@/pages/not-found"));
+const Analytics = lazy(() => import("@/pages/analytics"));
+const Settings = lazy(() => import("@/pages/settings"));
+const Notifications = lazy(() => import("@/pages/notifications"));
 
 function Loading() {
   return (
@@ -107,6 +110,21 @@ function Router() {
       <Route path="/tickets">
         <Layout>
           <MyTickets />
+        </Layout>
+      </Route>
+      <Route path="/analytics">
+        <Layout>
+          <Analytics />
+        </Layout>
+      </Route>
+      <Route path="/settings">
+        <Layout>
+          <Settings />
+        </Layout>
+      </Route>
+      <Route path="/notifications">
+        <Layout>
+          <Notifications />
         </Layout>
       </Route>
       <Route path="/knowledge-base">

@@ -117,14 +117,14 @@ export function useMyTickets(filters?: { status?: string; priority?: string }) {
   // Fetch all tickets first (we'll filter client-side to ensure current user)
   const allTicketsQuery = useAllTickets(filters);
   
-  // Process results to filter only those related to the current user
+  // Process results to filter only those assigned to the current user
   const processedData = React.useMemo(() => {
     if (!allTicketsQuery.data || !user) return [];
     
-    // Filter tickets that are either assigned to or reported by the current user
+    // Filter tickets that are assigned to the current user only
     return allTicketsQuery.data.filter(ticket => 
       // Make sure we're strictly comparing with the current user ID
-      ticket.assignedToId === user.id || ticket.reportedById === user.id
+      ticket.assignedToId === user.id
     ).sort((a, b) => {
       // Sort by creation date (newest first)
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();

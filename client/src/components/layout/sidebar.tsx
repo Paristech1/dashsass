@@ -31,9 +31,9 @@ export function Sidebar() {
         
         const tickets = await response.json();
         
-        // Count tickets that are either assigned to or reported by the current user
+        // Count tickets that are assigned to the current user
         const userTicketsCount = tickets.filter((ticket: any) => 
-          ticket.assignedToId === user.id || ticket.reportedById === user.id
+          ticket.assignedToId === user.id
         ).length;
         
         return userTicketsCount;
