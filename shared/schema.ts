@@ -36,6 +36,16 @@ export const tickets = pgTable("tickets", {
   callerLocation: text("caller_location"),
   issueLocation: text("issue_location"),
   preferredContact: text("preferred_contact"),
+  // SLA fields
+  slaDeadline: timestamp("sla_deadline"),
+  slaResolutionTime: integer("sla_resolution_time"), // Resolution time in hours based on priority
+  slaPaused: boolean("sla_paused").default(false),
+  slaPausedAt: timestamp("sla_paused_at"),
+  slaStatus: text("sla_status").default("on_track"),
+  isEscalated: boolean("is_escalated").default(false),
+  escalatedTo: integer("escalated_to").references(() => users.id),
+  escalatedAt: timestamp("escalated_at"),
+  // Timestamps
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
   resolvedAt: timestamp("resolved_at"),
@@ -169,8 +179,17 @@ export const UserRoleEnum = z.enum([
   "user"
 ]);
 
+export const SlaStatusEnum = z.enum([
+  "on_track",    // SLA deadline is far away
+  "at_risk",     // SLA deadline is approaching (e.g., 75% of time elapsed)
+  "breached",    // SLA deadline has passed
+  "paused",      // SLA timer is paused (e.g., waiting for customer input)
+  "met"          // SLA was met (resolved before deadline)
+]);
+
 export type TicketStatus = z.infer<typeof TicketStatusEnum>;
 export type TicketPriority = z.infer<typeof TicketPriorityEnum>;
 export type Impact = z.infer<typeof ImpactEnum>;
 export type Urgency = z.infer<typeof UrgencyEnum>;
 export type UserRole = z.infer<typeof UserRoleEnum>;
+export type SlaStatus = z.infer<typeof SlaStatusEnum>;

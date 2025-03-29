@@ -173,6 +173,28 @@ export class MemStorage implements IStorage {
     const ticketNumber = `TKT-${id.toString().padStart(4, '0')}`;
     const now = new Date();
     
+    // Calculate SLA resolution time based on priority
+    let slaResolutionTime: number;
+    switch(insertTicket.priority) {
+      case 'urgent':
+        slaResolutionTime = 4; // 4 hours for urgent tickets
+        break;
+      case 'high':
+        slaResolutionTime = 8; // 8 hours for high priority tickets
+        break;
+      case 'medium':
+        slaResolutionTime = 24; // 24 hours (1 day) for medium priority tickets
+        break;
+      case 'low':
+      default:
+        slaResolutionTime = 72; // 72 hours (3 days) for low priority tickets
+        break;
+    }
+    
+    // Calculate SLA deadline based on resolution time
+    const slaDeadline = new Date(now);
+    slaDeadline.setHours(slaDeadline.getHours() + slaResolutionTime);
+    
     const ticket: Ticket = {
       ...insertTicket,
       id,
@@ -181,6 +203,15 @@ export class MemStorage implements IStorage {
       updatedAt: now,
       resolvedAt: null,
       closedAt: null,
+      // SLA fields
+      slaResolutionTime,
+      slaDeadline,
+      slaStatus: 'on_track',
+      slaPaused: false,
+      slaPausedAt: null,
+      isEscalated: false,
+      escalatedTo: null,
+      escalatedAt: null,
     };
     
     this.tickets.set(id, ticket);
@@ -191,19 +222,101 @@ export class MemStorage implements IStorage {
     const ticket = this.tickets.get(id);
     if (!ticket) return undefined;
     
+    const now = new Date();
     const updatedTicket = { 
       ...ticket, 
       ...data,
-      updatedAt: new Date()
+      updatedAt: now
     };
     
     // Handle status changes to set resolved/closed dates
     if (data.status === 'resolved' && ticket.status !== 'resolved') {
-      updatedTicket.resolvedAt = new Date();
+      updatedTicket.resolvedAt = now;
+      
+      // Check if SLA was met
+      if (updatedTicket.slaDeadline && now < updatedTicket.slaDeadline) {
+        updatedTicket.slaStatus = 'met';
+      }
     }
     
     if (data.status === 'closed' && ticket.status !== 'closed') {
-      updatedTicket.closedAt = new Date();
+      updatedTicket.closedAt = now;
+      
+      // If it was not previously resolved, check if SLA was met
+      if (!updatedTicket.resolvedAt) {
+        updatedTicket.resolvedAt = now;
+        if (updatedTicket.slaDeadline && now < updatedTicket.slaDeadline) {
+          updatedTicket.slaStatus = 'met';
+        }
+      }
+    }
+    
+    // Handle SLA pausing/unpausing if explicitly set
+    if (data.status === 'pending' && ticket.status !== 'pending') {
+      // Pause the SLA when status changed to pending (waiting for customer)
+      updatedTicket.slaPaused = true;
+      updatedTicket.slaPausedAt = now;
+    } else if (ticket.status === 'pending' && data.status && data.status !== 'pending') {
+      // Unpause SLA when moving from pending to another status
+      updatedTicket.slaPaused = false;
+      
+      // If it was paused, extend the SLA deadline by the paused duration
+      if (ticket.slaPausedAt) {
+        const pausedDuration = now.getTime() - ticket.slaPausedAt.getTime();
+        if (updatedTicket.slaDeadline) {
+          updatedTicket.slaDeadline = new Date(updatedTicket.slaDeadline.getTime() + pausedDuration);
+        }
+      }
+    }
+    
+    // Update SLA status for open and in_progress tickets
+    if ((updatedTicket.status === 'open' || updatedTicket.status === 'in_progress') && 
+        !updatedTicket.slaPaused && updatedTicket.slaDeadline) {
+      
+      const timeRemaining = updatedTicket.slaDeadline.getTime() - now.getTime();
+      const totalTime = updatedTicket.slaResolutionTime * 60 * 60 * 1000; // Convert hours to ms
+      const timeElapsedPercentage = 100 - (timeRemaining / totalTime * 100);
+      
+      if (timeRemaining < 0) {
+        // SLA has been breached
+        updatedTicket.slaStatus = 'breached';
+      } else if (timeElapsedPercentage > 75) {
+        // SLA is at risk (> 75% of time has elapsed)
+        updatedTicket.slaStatus = 'at_risk';
+      } else {
+        // SLA is on track
+        updatedTicket.slaStatus = 'on_track';
+      }
+    }
+    
+    // Handle priority changes - update SLA deadline accordingly
+    if (data.priority && data.priority !== ticket.priority) {
+      // Calculate new SLA resolution time based on new priority
+      let newSlaResolutionTime: number;
+      switch(data.priority) {
+        case 'urgent':
+          newSlaResolutionTime = 4; // 4 hours for urgent tickets
+          break;
+        case 'high':
+          newSlaResolutionTime = 8; // 8 hours for high priority tickets
+          break;
+        case 'medium':
+          newSlaResolutionTime = 24; // 24 hours (1 day) for medium priority tickets
+          break;
+        case 'low':
+        default:
+          newSlaResolutionTime = 72; // 72 hours (3 days) for low priority tickets
+          break;
+      }
+      
+      updatedTicket.slaResolutionTime = newSlaResolutionTime;
+      
+      // Recalculate SLA deadline based on creation time and new resolution time
+      if (updatedTicket.createdAt) {
+        const newSlaDeadline = new Date(updatedTicket.createdAt);
+        newSlaDeadline.setHours(newSlaDeadline.getHours() + newSlaResolutionTime);
+        updatedTicket.slaDeadline = newSlaDeadline;
+      }
     }
     
     this.tickets.set(id, updatedTicket);

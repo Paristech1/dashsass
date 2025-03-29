@@ -21,6 +21,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Ticket } from "@shared/schema";
 import { formatDistanceToNow } from "date-fns";
 import { Check, ChevronDown, Filter, TicketIcon } from "lucide-react";
+import { SlaBadge, EscalationBadge } from "./sla-badge";
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
@@ -317,7 +318,27 @@ export function TicketList({ tickets, isLoading }: TicketListProps) {
                       </div>
                       <div className="mt-2 sm:mt-0 flex flex-col items-end">
                         <AssigneeAvatar assignedToId={ticket.assignedToId} />
-                        <div className="flex gap-2 mt-1">
+                        <div className="flex flex-wrap gap-2 mt-1 justify-end">
+                          {/* SLA Status Badge */}
+                          {ticket.slaStatus && 
+                            <SlaBadge 
+                              slaStatus={ticket.slaStatus} 
+                              slaDeadline={ticket.slaDeadline}
+                              slaPaused={ticket.slaPaused}
+                              size="sm"
+                            />
+                          }
+                          
+                          {/* Escalation Badge */}
+                          {ticket.isEscalated && 
+                            <EscalationBadge 
+                              isEscalated={ticket.isEscalated}
+                              escalatedAt={ticket.escalatedAt}
+                              size="sm"
+                            />
+                          }
+                          
+                          {/* Standard Status & Priority Badges */}
                           <StatusBadge status={ticket.status} />
                           <PriorityBadge priority={ticket.priority} />
                         </div>

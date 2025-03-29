@@ -35,8 +35,11 @@ import {
   FileText, 
   Activity,
   PaperclipIcon,
-  AlertCircle
+  AlertCircle,
+  AlertTriangle,
+  Bell
 } from "lucide-react";
+import { SlaBadge, EscalationBadge } from "./sla-badge";
 
 import {
   AlertDialog,
@@ -466,6 +469,47 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
             </div>
 
             <div className="space-y-4">
+              {/* SLA Status Section */}
+              {ticket.slaStatus && (
+                <div className="bg-gray-50 p-3 rounded-md border border-gray-200">
+                  <h3 className="text-sm font-medium text-gray-700 mb-2 flex items-center">
+                    {ticket.slaStatus === 'at_risk' ? (
+                      <AlertTriangle className="h-4 w-4 mr-2 text-amber-500" />
+                    ) : ticket.slaStatus === 'breached' ? (
+                      <AlertCircle className="h-4 w-4 mr-2 text-red-500" />
+                    ) : (
+                      <Clock className="h-4 w-4 mr-2 text-green-500" />
+                    )}
+                    SLA Status
+                  </h3>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <SlaBadge 
+                        slaStatus={ticket.slaStatus} 
+                        slaDeadline={ticket.slaDeadline}
+                        slaPaused={ticket.slaPaused}
+                        size="md"
+                      />
+                      {ticket.slaDeadline && (
+                        <p className="text-sm text-gray-500 mt-1">
+                          Due {formatDate(ticket.slaDeadline, true)}
+                        </p>
+                      )}
+                    </div>
+                    {ticket.isEscalated && (
+                      <div>
+                        <EscalationBadge 
+                          isEscalated={ticket.isEscalated}
+                          escalatedAt={ticket.escalatedAt}
+                          size="md"
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+              
+              {/* Other ticket info */}
               <div>
                 <h3 className="text-sm font-medium text-gray-500">
                   Configuration Item
@@ -784,9 +828,29 @@ function UserName({ userId }: { userId: number }) {
   return <>{name}</>;
 }
 
-function formatDate(timestamp: string | Date | null): string {
+function formatDate(timestamp: string | Date | null, showTimeRemaining: boolean = false): string {
   if (!timestamp) return "N/A";
   const date = typeof timestamp === "string" ? new Date(timestamp) : timestamp;
+  
+  if (showTimeRemaining) {
+    const now = new Date();
+    if (date > now) {
+      const diffMs = date.getTime() - now.getTime();
+      const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+      const diffHours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      
+      if (diffDays > 0) {
+        return `in ${diffDays} day${diffDays !== 1 ? 's' : ''} ${diffHours} hour${diffHours !== 1 ? 's' : ''}`;
+      } else if (diffHours > 0) {
+        return `in ${diffHours} hour${diffHours !== 1 ? 's' : ''}`;
+      } else {
+        return `in less than an hour`;
+      }
+    } else {
+      return `${format(date, "MMM d 'at' h:mm a")} (overdue)`;
+    }
+  }
+  
   return format(date, "MMM d, yyyy 'at' h:mm a");
 }
 
