@@ -53,8 +53,8 @@ export default function AnalyticsPage() {
   
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-semibold text-gray-900">Analytics</h1>
+    <div className="flex justify-between items-center">
+      <h1 className="text-2xl font-semibold text-foreground">Analytics</h1>
         <Select
           value={period}
           onValueChange={setPeriod}

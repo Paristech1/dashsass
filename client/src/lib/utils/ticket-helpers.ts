@@ -44,7 +44,7 @@ export function formatStatus(status: string): { label: string; color: string } {
     }
   };
   
-  return statusMap[status] || { label: status, color: "bg-gray-100 text-gray-800 border-gray-200" };
+  return statusMap[status] || { label: status, color: "bg-secondary text-foreground border-border" };
 }
 
 // Format ticket priority for display
@@ -68,7 +68,7 @@ export function formatPriority(priority: string): { label: string; color: string
     }
   };
   
-  return priorityMap[priority] || { label: priority, color: "bg-gray-100 text-gray-800 border-gray-200" };
+  return priorityMap[priority] || { label: priority, color: "bg-secondary text-foreground border-border" };
 }
 
 // Calculate priority from impact and urgency

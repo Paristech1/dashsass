@@ -13,7 +13,7 @@ export default function AllTicketsPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-semibold text-gray-900">All Tickets</h1>
+      <h1 className="text-2xl font-semibold text-foreground">All Tickets</h1>
       
       <TicketList 
         tickets={tickets || []} 

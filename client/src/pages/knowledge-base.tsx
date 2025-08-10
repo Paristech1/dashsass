@@ -46,7 +46,7 @@ export default function KnowledgeBasePage() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-semibold text-gray-900 flex items-center">
+        <h1 className="text-2xl font-semibold text-foreground flex items-center">
           <BookOpen className="mr-2 h-6 w-6" />
           Knowledge Base
         </h1>
@@ -60,10 +60,10 @@ export default function KnowledgeBasePage() {
         <CardHeader>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="relative w-full md:w-96">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
                 placeholder="Search articles..."
-                className="pl-10"
+                className="pl-10 bg-secondary border-border text-foreground placeholder:text-muted-foreground"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -104,12 +104,12 @@ export default function KnowledgeBasePage() {
                 <div className="space-y-4 animate-pulse">
                   {[...Array(5)].map((_, i) => (
                     <div key={i} className="p-4 border rounded-md">
-                      <div className="h-5 bg-gray-200 rounded w-1/3 mb-2"></div>
-                      <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
-                      <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+                      <div className="h-5 bg-secondary rounded w-1/3 mb-2"></div>
+                      <div className="h-4 bg-secondary rounded w-full mb-2"></div>
+                      <div className="h-4 bg-secondary rounded w-2/3"></div>
                       <div className="flex justify-between items-center mt-4">
-                        <div className="h-4 bg-gray-200 rounded w-20"></div>
-                        <div className="h-4 bg-gray-200 rounded w-24"></div>
+                        <div className="h-4 bg-secondary rounded w-20"></div>
+                        <div className="h-4 bg-secondary rounded w-24"></div>
                       </div>
                     </div>
                   ))}
@@ -117,17 +117,17 @@ export default function KnowledgeBasePage() {
               ) : filteredArticles && filteredArticles.length > 0 ? (
                 <div className="space-y-4">
                   {filteredArticles.map(article => (
-                    <div key={article.id} className="p-4 border rounded-md hover:border-primary-200 hover:shadow-sm transition-all cursor-pointer">
-                      <h3 className="font-medium text-lg text-gray-900">{article.title}</h3>
-                      <p className="text-gray-600 line-clamp-2 mt-1">
+                    <div key={article.id} className="p-4 border rounded-md hover:border-primary/50 hover:shadow-sm transition-all cursor-pointer bg-card">
+                      <h3 className="font-medium text-lg text-foreground">{article.title}</h3>
+                      <p className="text-muted-foreground line-clamp-2 mt-1">
                         {article.content.substring(0, 200)}
                         {article.content.length > 200 ? '...' : ''}
                       </p>
                       <div className="flex justify-between items-center mt-2 text-sm">
-                        <span className="text-gray-500">
+                        <span className="text-muted-foreground">
                           Category: {getCategoryName(article.categoryId)}
                         </span>
-                        <span className="text-gray-500">
+                        <span className="text-muted-foreground">
                           Updated {formatDistanceToNow(new Date(article.updatedAt), { addSuffix: true })}
                         </span>
                       </div>
@@ -136,9 +136,9 @@ export default function KnowledgeBasePage() {
                 </div>
               ) : (
                 <div className="text-center py-12">
-                  <BookOpen className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900">No articles found</h3>
-                  <p className="text-gray-500 mt-2">
+                  <BookOpen className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
+                  <h3 className="text-lg font-medium text-foreground">No articles found</h3>
+                  <p className="text-muted-foreground mt-2">
                     {searchQuery || categoryFilter !== "all" 
                       ? "Try adjusting your search or filter criteria" 
                       : "Start by creating your first knowledge base article"}
@@ -149,9 +149,9 @@ export default function KnowledgeBasePage() {
             
             <TabsContent value="drafts" className="mt-0">
               <div className="text-center py-12">
-                <BookOpen className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-                <h3 className="text-lg font-medium text-gray-900">No draft articles</h3>
-                <p className="text-gray-500 mt-2">Draft articles will appear here</p>
+                <BookOpen className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
+                <h3 className="text-lg font-medium text-foreground">No draft articles</h3>
+                <p className="text-muted-foreground mt-2">Draft articles will appear here</p>
                 <Button className="mt-4">
                   <Plus className="mr-2 h-4 w-4" />
                   Create New Article

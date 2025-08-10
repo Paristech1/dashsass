@@ -18,10 +18,10 @@ export function RecentTickets({ tickets, isLoading }: RecentTicketsProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg font-medium">Recent Tickets</CardTitle>
+        <CardTitle className="text-lg font-medium text-foreground">Recent Tickets</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="divide-y divide-gray-200">
+        <div className="divide-y divide-border">
           {isLoading ? (
             // Skeleton loading state
             <>
@@ -29,15 +29,15 @@ export function RecentTickets({ tickets, isLoading }: RecentTicketsProps) {
                 <div key={i} className="py-4 animate-pulse">
                   <div className="flex justify-between">
                     <div className="flex-1 pr-4">
-                      <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
-                      <div className="h-3 bg-gray-200 rounded w-1/4 mb-2"></div>
+                      <div className="h-4 bg-secondary rounded w-3/4 mb-2"></div>
+                      <div className="h-3 bg-secondary rounded w-1/4 mb-2"></div>
                       <div className="flex space-x-2">
-                        <div className="h-5 bg-gray-200 rounded w-16"></div>
-                        <div className="h-5 bg-gray-200 rounded w-16"></div>
+                        <div className="h-5 bg-secondary rounded w-16"></div>
+                        <div className="h-5 bg-secondary rounded w-16"></div>
                       </div>
                     </div>
                     <div className="flex-shrink-0">
-                      <div className="h-8 w-8 bg-gray-200 rounded-full"></div>
+                      <div className="h-8 w-8 bg-secondary rounded-full"></div>
                     </div>
                   </div>
                 </div>
@@ -50,11 +50,11 @@ export function RecentTickets({ tickets, isLoading }: RecentTicketsProps) {
                   <div className="flex justify-between">
                     <div className="flex-1 pr-4">
                       <Link href={`/tickets/${ticket.id}`}>
-                        <h3 className="text-sm font-medium text-gray-800 truncate hover:text-primary-600 hover:underline" title={ticket.title}>
+                        <h3 className="text-sm font-medium text-foreground truncate hover:text-primary hover:underline" title={ticket.title}>
                           {ticket.title}
                         </h3>
                       </Link>
-                      <div className="text-xs text-gray-500 mb-2">
+                      <div className="text-xs text-muted-foreground mb-2">
                         {ticket.ticketNumber} • {formatRelativeTime(ticket.createdAt)}
                       </div>
                       <div className="flex space-x-2">
@@ -70,7 +70,7 @@ export function RecentTickets({ tickets, isLoading }: RecentTicketsProps) {
               ))}
               {tickets.length === 0 && (
                 <div className="py-8 text-center">
-                  <p className="text-gray-500">No tickets found</p>
+                  <p className="text-muted-foreground">No tickets found</p>
                 </div>
               )}
             </>
@@ -96,11 +96,11 @@ function formatRelativeTime(timestamp: string | Date): string {
 // Status badge component
 function StatusBadge({ status }: { status: string }) {
   const statusClasses: { [key: string]: string } = {
-    open: "bg-blue-100 text-blue-800",
-    in_progress: "bg-purple-100 text-purple-800",
-    pending: "bg-amber-100 text-amber-800",
-    resolved: "bg-green-100 text-green-800",
-    closed: "bg-gray-100 text-gray-800",
+    open: "bg-blue-500/15 text-blue-300 border border-blue-400/30",
+    in_progress: "bg-purple-500/15 text-purple-300 border border-purple-400/30",
+    pending: "bg-amber-500/15 text-amber-300 border border-amber-400/30",
+    resolved: "bg-green-500/15 text-green-300 border border-green-400/30",
+    closed: "bg-muted/40 text-muted-foreground border border-border",
   };
 
   const statusDisplayNames: { [key: string]: string } = {
@@ -114,7 +114,7 @@ function StatusBadge({ status }: { status: string }) {
   return (
     <Badge 
       variant="outline" 
-      className={`${statusClasses[status] || "bg-gray-100 text-gray-800"} uppercase text-xs`}
+      className={`${statusClasses[status] || "bg-muted/40 text-muted-foreground"} uppercase text-xs`}
     >
       {statusDisplayNames[status] || status}
     </Badge>
@@ -124,16 +124,16 @@ function StatusBadge({ status }: { status: string }) {
 // Priority badge component
 function PriorityBadge({ priority }: { priority: string }) {
   const priorityClasses: { [key: string]: string } = {
-    urgent: "bg-red-100 text-red-800",
-    high: "bg-orange-100 text-orange-800",
-    medium: "bg-yellow-100 text-yellow-800",
-    low: "bg-green-100 text-green-800",
+    urgent: "bg-red-500/15 text-red-300 border border-red-400/30",
+    high: "bg-orange-500/15 text-orange-300 border border-orange-400/30",
+    medium: "bg-yellow-500/15 text-yellow-300 border border-yellow-400/30",
+    low: "bg-green-500/15 text-green-300 border border-green-400/30",
   };
 
   return (
     <Badge 
       variant="outline" 
-      className={`${priorityClasses[priority] || "bg-gray-100 text-gray-800"} uppercase text-xs`}
+      className={`${priorityClasses[priority] || "bg-muted/40 text-muted-foreground"} uppercase text-xs`}
     >
       {priority}
     </Badge>

@@ -120,14 +120,14 @@ export default function NotificationsPage() {
       case "sla_alert":
         return <AlertCircle className="h-5 w-5 text-red-500" />;
       default:
-        return <Bell className="h-5 w-5 text-gray-500" />;
+        return <Bell className="h-5 w-5 text-muted-foreground" />;
     }
   };
   
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-semibold text-gray-900">Notifications</h1>
+        <h1 className="text-2xl font-semibold text-foreground">Notifications</h1>
         <div className="flex space-x-4">
           {unreadCount > 0 && (
             <Button 
@@ -149,7 +149,7 @@ export default function NotificationsPage() {
           <TabsList>
             <TabsTrigger value="all">
               All 
-              <Badge className="ml-2 bg-gray-200 text-gray-800" variant="secondary">
+              <Badge className="ml-2 bg-secondary text-foreground" variant="secondary">
                 {notifications.length}
               </Badge>
             </TabsTrigger>
@@ -173,15 +173,15 @@ export default function NotificationsPage() {
             <CardContent>
               {filteredNotifications.length === 0 ? (
                 <div className="text-center py-8">
-                  <Bell className="h-12 w-12 text-gray-300 mx-auto mb-3" />
-                  <p className="text-gray-500">No notifications available</p>
+                  <Bell className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
+                  <p className="text-muted-foreground">No notifications available</p>
                 </div>
               ) : (
                 <div className="space-y-1">
                   {filteredNotifications.map((notification) => (
                     <div key={notification.id} className="relative">
                       <div 
-                        className={`p-4 border rounded-md flex gap-4 hover:bg-gray-50 cursor-pointer ${!notification.isRead ? 'bg-blue-50' : ''}`}
+                        className={`p-4 border rounded-md flex gap-4 hover:bg-secondary/60 cursor-pointer ${!notification.isRead ? 'bg-secondary' : ''}`}
                         onClick={() => markAsRead(notification.id)}
                       >
                         <div className="flex-shrink-0 mt-1">
@@ -189,15 +189,15 @@ export default function NotificationsPage() {
                         </div>
                         <div className="flex-grow">
                           <div className="flex justify-between items-start">
-                            <h4 className={`text-base font-medium ${!notification.isRead ? 'text-black' : 'text-gray-700'}`}>
+                            <h4 className={`text-base font-medium ${!notification.isRead ? 'text-foreground' : 'text-muted-foreground'}`}>
                               {notification.title}
                             </h4>
-                            <span className="text-xs text-gray-500 flex items-center">
+                            <span className="text-xs text-muted-foreground flex items-center">
                               <Clock className="h-3 w-3 mr-1" />
                               {formatDistanceToNow(notification.createdAt, { addSuffix: true })}
                             </span>
                           </div>
-                          <p className="text-sm text-gray-600 mt-1">{notification.content}</p>
+                          <p className="text-sm text-muted-foreground mt-1">{notification.content}</p>
                           <div className="mt-2">
                             <Button 
                               variant="link" 
@@ -226,15 +226,15 @@ export default function NotificationsPage() {
             <CardContent>
               {filteredNotifications.length === 0 ? (
                 <div className="text-center py-8">
-                  <CheckCircle className="h-12 w-12 text-green-300 mx-auto mb-3" />
-                  <p className="text-gray-500">No unread notifications</p>
+                  <CheckCircle className="h-12 w-12 text-green-400 mx-auto mb-3" />
+                  <p className="text-muted-foreground">No unread notifications</p>
                 </div>
               ) : (
                 <div className="space-y-1">
                   {filteredNotifications.map((notification) => (
                     <div key={notification.id} className="relative">
                       <div 
-                        className="p-4 border rounded-md flex gap-4 hover:bg-gray-50 cursor-pointer bg-blue-50"
+                        className="p-4 border rounded-md flex gap-4 hover:bg-secondary/60 cursor-pointer bg-secondary"
                         onClick={() => markAsRead(notification.id)}
                       >
                         <div className="flex-shrink-0 mt-1">
@@ -242,15 +242,15 @@ export default function NotificationsPage() {
                         </div>
                         <div className="flex-grow">
                           <div className="flex justify-between items-start">
-                            <h4 className="text-base font-medium text-black">
+                            <h4 className="text-base font-medium text-foreground">
                               {notification.title}
                             </h4>
-                            <span className="text-xs text-gray-500 flex items-center">
+                            <span className="text-xs text-muted-foreground flex items-center">
                               <Clock className="h-3 w-3 mr-1" />
                               {formatDistanceToNow(notification.createdAt, { addSuffix: true })}
                             </span>
                           </div>
-                          <p className="text-sm text-gray-600 mt-1">{notification.content}</p>
+                          <p className="text-sm text-muted-foreground mt-1">{notification.content}</p>
                           <div className="mt-2">
                             <Button 
                               variant="link" 

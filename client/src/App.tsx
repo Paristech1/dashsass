@@ -31,14 +31,14 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
     if (this.state.hasError) {
       return (
         <div className="flex items-center justify-center h-screen flex-col p-4">
-          <h1 className="text-2xl font-bold text-red-600 mb-4">Something went wrong</h1>
-          <p className="text-gray-600 mb-6">The application encountered an unexpected error.</p>
-          <pre className="bg-gray-100 p-4 rounded-md text-sm mb-6 max-w-xl overflow-auto">
+          <h1 className="text-2xl font-bold text-destructive mb-4">Something went wrong</h1>
+          <p className="text-muted-foreground mb-6">The application encountered an unexpected error.</p>
+          <pre className="bg-secondary p-4 rounded-md text-sm mb-6 max-w-xl overflow-auto">
             {this.state.error?.message}
           </pre>
           <button 
             onClick={() => window.location.reload()} 
-            className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90"
+            className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
           >
             Reload Application
           </button>
@@ -73,11 +73,11 @@ function Loading() {
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-background">
       <Sidebar />
       <div className="flex-1 flex flex-col min-h-screen pl-64">
         <Header />
-        <main className="flex-1 overflow-y-auto bg-gray-50 px-6 py-6">
+        <main className="flex-1 overflow-y-auto bg-background px-6 py-6">
           <Suspense fallback={<Loading />}>
             {children}
           </Suspense>

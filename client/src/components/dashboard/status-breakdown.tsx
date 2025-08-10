@@ -17,7 +17,7 @@ export function StatusBreakdownChart({ data, isLoading }: StatusBreakdownChartPr
     in_progress: "bg-purple-500",
     pending: "bg-amber-500",
     resolved: "bg-green-500",
-    closed: "bg-gray-500",
+    closed: "bg-muted",
   };
   
   // Status to display name mapping
@@ -44,12 +44,12 @@ export function StatusBreakdownChart({ data, isLoading }: StatusBreakdownChartPr
             {[1, 2, 3, 4, 5].map((index) => (
               <div key={`status-loading-${index}`}>
                 <div className="flex justify-between text-sm mb-1">
-                  <div className="h-4 bg-gray-200 rounded w-24"></div>
-                  <div className="h-4 bg-gray-200 rounded w-32"></div>
+                  <div className="h-4 bg-secondary rounded w-24"></div>
+                  <div className="h-4 bg-secondary rounded w-32"></div>
                 </div>
-                <div className="h-2 bg-gray-200 rounded-full">
+                <div className="h-2 bg-secondary rounded-full">
                   <div
-                    className="h-2 bg-gray-300 rounded-full"
+                    className="h-2 bg-muted rounded-full"
                     style={{ width: `${(index * 20)}%` }}
                   ></div>
                 </div>
@@ -64,28 +64,28 @@ export function StatusBreakdownChart({ data, isLoading }: StatusBreakdownChartPr
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-lg font-medium">Ticket Status Breakdown</CardTitle>
+        <CardTitle className="text-lg font-medium text-foreground">Ticket Status Breakdown</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
           {data.map((item) => (
             <div key={item.status}>
               <div className="flex justify-between text-sm mb-1">
-                <span className="text-gray-700">{statusDisplayNames[item.status] || item.status}</span>
-                <span className="text-gray-500">
+                <span className="text-foreground/90">{statusDisplayNames[item.status] || item.status}</span>
+                <span className="text-muted-foreground">
                   {item.count} tickets ({item.percentage}%)
                 </span>
               </div>
-              <div className="h-2 bg-gray-200 rounded-full">
+              <div className="h-2 bg-secondary rounded-full">
                 <div
-                  className={`h-2 ${statusColors[item.status] || "bg-gray-500"} rounded-full`}
+                  className={`h-2 ${statusColors[item.status] || "bg-muted"} rounded-full`}
                   style={{ width: `${item.percentage}%` }}
                 ></div>
               </div>
             </div>
           ))}
         </div>
-        <div className="flex justify-between text-xs text-gray-500 mt-4">
+        <div className="flex justify-between text-xs text-muted-foreground mt-4">
           <span>Total: {totalTickets} tickets</span>
           <span>Last 30 days</span>
         </div>

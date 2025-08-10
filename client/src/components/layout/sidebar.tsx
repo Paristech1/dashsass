@@ -103,14 +103,14 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="w-64 bg-white shadow-md z-20 flex flex-col h-screen fixed">
+    <aside className="w-64 bg-sidebar text-sidebar-foreground border-r border-sidebar-border z-20 flex flex-col h-screen fixed">
       {/* Sidebar Header */}
-      <div className="h-16 flex items-center px-4 border-b border-gray-200">
+      <div className="h-16 flex items-center px-4 border-b border-sidebar-border">
         <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold">
+          <div className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold">
             M
           </div>
-          <span className="font-semibold text-gray-900">Modern Ticketing</span>
+          <span className="font-semibold text-foreground">Modern Ticketing</span>
         </div>
       </div>
 
@@ -123,8 +123,8 @@ export function Sidebar() {
             href={item.href}
             className={`flex items-center justify-between px-4 py-2.5 text-sm font-medium rounded-md mb-1 transition-colors duration-200 ${
               isActive(item.href)
-                ? "bg-primary-50 text-primary-700"
-                : "text-gray-700 hover:bg-primary-50 hover:text-primary-700"
+                ? "bg-sidebar-accent text-foreground"
+                : "text-muted-foreground hover:bg-sidebar-accent hover:text-foreground"
             }`}
           >
             <div className="flex items-center">
@@ -132,7 +132,7 @@ export function Sidebar() {
               {item.label}
             </div>
             {item.badge && (
-              <Badge variant="secondary" className="bg-primary-100 text-primary-800 hover:bg-primary-200">
+              <Badge variant="secondary" className="bg-secondary text-foreground">
                 {item.badge}
               </Badge>
             )}
@@ -140,7 +140,7 @@ export function Sidebar() {
         ))}
 
         {/* Support Section */}
-        <div className="mt-3 px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+        <div className="mt-3 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
           Support
         </div>
         
@@ -150,8 +150,8 @@ export function Sidebar() {
             href={item.href}
             className={`flex items-center px-4 py-2.5 text-sm font-medium rounded-md mb-1 transition-colors duration-200 ${
               isActive(item.href)
-                ? "bg-primary-50 text-primary-700"
-                : "text-gray-700 hover:bg-primary-50 hover:text-primary-700"
+                ? "bg-sidebar-accent text-foreground"
+                : "text-muted-foreground hover:bg-sidebar-accent hover:text-foreground"
             }`}
           >
             {item.icon}
@@ -160,7 +160,7 @@ export function Sidebar() {
         ))}
 
         {/* Settings Section */}
-        <div className="mt-3 px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+        <div className="mt-3 px-4 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
           Settings
         </div>
         
@@ -170,8 +170,8 @@ export function Sidebar() {
             href={item.href}
             className={`flex items-center px-4 py-2.5 text-sm font-medium rounded-md mb-1 transition-colors duration-200 ${
               isActive(item.href)
-                ? "bg-primary-50 text-primary-700"
-                : "text-gray-700 hover:bg-primary-50 hover:text-primary-700"
+                ? "bg-sidebar-accent text-foreground"
+                : "text-muted-foreground hover:bg-sidebar-accent hover:text-foreground"
             }`}
           >
             {item.icon}
@@ -181,18 +181,18 @@ export function Sidebar() {
       </nav>
 
       {/* Sidebar Footer with User Profile */}
-      <div className="border-t border-gray-200 p-4">
+      <div className="border-t border-sidebar-border p-4">
         <div className="flex items-center">
           <img
             src={user?.avatarUrl || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.fullName || 'John Smith')}&background=0D8ABC&color=fff`}
             alt="User avatar"
-            className="h-9 w-9 rounded-full"
+            className="h-9 w-9 rounded-full ring-1 ring-border"
           />
           <div className="ml-3">
-            <p className="text-sm font-medium text-gray-700">
+            <p className="text-sm font-medium text-foreground">
               {user?.fullName || "John Smith"}
             </p>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-muted-foreground">
               {user?.department || "IT Support"}
             </p>
           </div>

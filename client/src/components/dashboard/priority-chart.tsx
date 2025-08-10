@@ -20,7 +20,7 @@ export function PriorityChart({ data, isLoading }: PriorityChartProps) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg font-medium">Priority Distribution</CardTitle>
+          <CardTitle className="text-lg font-medium text-foreground">Priority Distribution</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="h-[250px] flex items-end animate-pulse">
@@ -28,13 +28,13 @@ export function PriorityChart({ data, isLoading }: PriorityChartProps) {
               {[...Array(4)].map((_, i) => (
                 <div
                   key={i}
-                  className="w-16 bg-gray-200 rounded-t-md"
+                  className="w-16 bg-secondary rounded-t-md"
                   style={{ height: `${Math.random() * 150 + 50}px` }}
                 ></div>
               ))}
             </div>
           </div>
-          <div className="text-center text-xs text-gray-500 mt-4">
+          <div className="text-center text-xs text-muted-foreground mt-4">
             Tickets by Priority
           </div>
         </CardContent>
@@ -43,10 +43,10 @@ export function PriorityChart({ data, isLoading }: PriorityChartProps) {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-lg font-medium">Priority Distribution</CardTitle>
-      </CardHeader>
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg font-medium text-foreground">Priority Distribution</CardTitle>
+        </CardHeader>
       <CardContent>
         <div className="h-[250px]">
           <ResponsiveContainer width="100%" height="100%">
@@ -61,7 +61,7 @@ export function PriorityChart({ data, isLoading }: PriorityChartProps) {
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <div className="text-center text-xs text-gray-500 mt-2">
+          <div className="text-center text-xs text-muted-foreground mt-2">
           Tickets by Priority
         </div>
       </CardContent>

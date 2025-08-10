@@ -292,18 +292,18 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
     return (
       <Card className="animate-pulse">
         <CardHeader>
-          <div className="h-6 bg-gray-200 rounded w-48 mb-2"></div>
-          <div className="h-4 bg-gray-200 rounded w-24"></div>
+          <div className="h-6 bg-secondary rounded w-48 mb-2"></div>
+          <div className="h-4 bg-secondary rounded w-24"></div>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <div className="h-4 bg-gray-200 rounded w-32"></div>
-              <div className="h-6 bg-gray-200 rounded w-full"></div>
+              <div className="h-4 bg-secondary rounded w-32"></div>
+              <div className="h-6 bg-secondary rounded w-full"></div>
             </div>
             <div className="space-y-2">
-              <div className="h-4 bg-gray-200 rounded w-32"></div>
-              <div className="h-6 bg-gray-200 rounded w-full"></div>
+              <div className="h-4 bg-secondary rounded w-32"></div>
+              <div className="h-6 bg-secondary rounded w-full"></div>
             </div>
           </div>
         </CardContent>
@@ -316,8 +316,8 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
       <Card>
         <CardContent className="pt-6">
           <div className="text-center">
-            <h2 className="text-xl font-bold text-gray-900 mb-2">Error Loading Ticket</h2>
-            <p className="text-gray-500 mb-4">Unable to load ticket details. Please try again later.</p>
+            <h2 className="text-xl font-bold text-foreground mb-2">Error Loading Ticket</h2>
+            <p className="text-muted-foreground mb-4">Unable to load ticket details. Please try again later.</p>
             <Button onClick={() => navigate("/tickets")}>
               <ArrowLeftIcon className="mr-2 h-4 w-4" />
               Back to Tickets
@@ -333,8 +333,8 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
       <Card>
         <CardContent className="pt-6">
           <div className="text-center">
-            <h2 className="text-xl font-bold text-gray-900 mb-2">Ticket Not Found</h2>
-            <p className="text-gray-500 mb-4">The ticket you're looking for doesn't exist or has been removed.</p>
+            <h2 className="text-xl font-bold text-foreground mb-2">Ticket Not Found</h2>
+            <p className="text-muted-foreground mb-4">The ticket you're looking for doesn't exist or has been removed.</p>
             <Button onClick={() => navigate("/tickets")}>
               <ArrowLeftIcon className="mr-2 h-4 w-4" />
               Back to Tickets
@@ -400,7 +400,7 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
           <div className="flex items-center justify-between">
             <div>
               <CardTitle className="text-xl">{ticket.title}</CardTitle>
-              <p className="text-gray-500 text-sm mt-1">{ticket.ticketNumber}</p>
+              <p className="text-muted-foreground text-sm mt-1">{ticket.ticketNumber}</p>
             </div>
             <PriorityBadge priority={ticket.priority} />
           </div>
@@ -410,21 +410,21 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="space-y-4">
               <div>
-                <h3 className="text-sm font-medium text-gray-500 flex items-center">
+                <h3 className="text-sm font-medium text-muted-foreground flex items-center">
                   <Calendar className="h-4 w-4 mr-2" />
                   Created
                 </h3>
                 <p className="mt-1">{formatDate(ticket.createdAt)}</p>
               </div>
               <div>
-                <h3 className="text-sm font-medium text-gray-500 flex items-center">
+                <h3 className="text-sm font-medium text-muted-foreground flex items-center">
                   <Clock className="h-4 w-4 mr-2" />
                   Last Updated
                 </h3>
                 <p className="mt-1">{formatDate(ticket.updatedAt)}</p>
               </div>
               <div>
-                <h3 className="text-sm font-medium text-gray-500 flex items-center">
+                <h3 className="text-sm font-medium text-muted-foreground flex items-center">
                   <User className="h-4 w-4 mr-2" />
                   Reported By
                 </h3>
@@ -436,7 +436,7 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
 
             <div className="space-y-4">
               <div>
-                <h3 className="text-sm font-medium text-gray-500 flex items-center">
+                <h3 className="text-sm font-medium text-muted-foreground flex items-center">
                   <User className="h-4 w-4 mr-2" />
                   Assigned To
                 </h3>
@@ -459,7 +459,7 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
                 </p>
               </div>
               <div>
-                <h3 className="text-sm font-medium text-gray-500">
+                <h3 className="text-sm font-medium text-muted-foreground">
                   Impact / Urgency
                 </h3>
                 <p className="mt-1 capitalize">
@@ -471,8 +471,8 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
             <div className="space-y-4">
               {/* SLA Status Section */}
               {ticket.slaStatus && (
-                <div className="bg-gray-50 p-3 rounded-md border border-gray-200">
-                  <h3 className="text-sm font-medium text-gray-700 mb-2 flex items-center">
+                <div className="bg-secondary/40 p-3 rounded-md border border-border">
+                  <h3 className="text-sm font-medium text-foreground mb-2 flex items-center">
                     {ticket.slaStatus === 'at_risk' ? (
                       <AlertTriangle className="h-4 w-4 mr-2 text-amber-500" />
                     ) : ticket.slaStatus === 'breached' ? (
@@ -491,7 +491,7 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
                         size="md"
                       />
                       {ticket.slaDeadline && (
-                        <p className="text-sm text-gray-500 mt-1">
+                        <p className="text-sm text-muted-foreground mt-1">
                           Due {formatDate(ticket.slaDeadline, true)}
                         </p>
                       )}
@@ -511,27 +511,27 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
               
               {/* Other ticket info */}
               <div>
-                <h3 className="text-sm font-medium text-gray-500">
+                <h3 className="text-sm font-medium text-muted-foreground">
                   Configuration Item
                 </h3>
                 <p className="mt-1">
-                  {ticket.configurationItem || <span className="text-gray-400">None specified</span>}
+                  {ticket.configurationItem || <span className="text-muted-foreground">None specified</span>}
                 </p>
               </div>
               <div>
-                <h3 className="text-sm font-medium text-gray-500">
+                <h3 className="text-sm font-medium text-muted-foreground">
                   Location
                 </h3>
                 <p className="mt-1">
-                  {ticket.issueLocation || ticket.callerLocation || <span className="text-gray-400">None specified</span>}
+                  {ticket.issueLocation || ticket.callerLocation || <span className="text-muted-foreground">None specified</span>}
                 </p>
               </div>
               <div>
-                <h3 className="text-sm font-medium text-gray-500">
+                <h3 className="text-sm font-medium text-muted-foreground">
                   Preferred Contact
                 </h3>
                 <p className="mt-1 capitalize">
-                  {ticket.preferredContact || <span className="text-gray-400">None specified</span>}
+                  {ticket.preferredContact || <span className="text-muted-foreground">None specified</span>}
                 </p>
               </div>
             </div>
@@ -539,15 +539,15 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
 
           {/* Description */}
           <div>
-            <h3 className="text-sm font-medium text-gray-500 mb-2 flex items-center">
+            <h3 className="text-sm font-medium text-muted-foreground mb-2 flex items-center">
               <FileText className="h-4 w-4 mr-2" />
               Description
             </h3>
-            <div className="bg-gray-50 p-4 rounded-md">
+            <div className="bg-secondary/40 p-4 rounded-md">
               {ticket.description ? (
                 <p className="whitespace-pre-wrap">{ticket.description}</p>
               ) : (
-                <p className="text-gray-400">No description provided</p>
+                <p className="text-muted-foreground">No description provided</p>
               )}
             </div>
           </div>
@@ -567,11 +567,11 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
             <div className="space-y-4 animate-pulse">
               {[...Array(3)].map((_, i) => (
                 <div key={i} className="flex space-x-4">
-                  <div className="h-10 w-10 bg-gray-200 rounded-full"></div>
+                  <div className="h-10 w-10 bg-secondary rounded-full"></div>
                   <div className="flex-1 space-y-2">
-                    <div className="h-4 bg-gray-200 rounded w-1/4"></div>
-                    <div className="h-4 bg-gray-200 rounded w-full"></div>
-                    <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                    <div className="h-4 bg-secondary rounded w-1/4"></div>
+                    <div className="h-4 bg-secondary rounded w-full"></div>
+                    <div className="h-4 bg-secondary rounded w-3/4"></div>
                   </div>
                 </div>
               ))}
@@ -584,7 +584,7 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
                   <div className="flex-1">
                     <div className="flex items-center space-x-2">
                       <UserName userId={comment.userId} />
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-muted-foreground">
                         {formatDate(comment.createdAt)}
                       </span>
                       {comment.isInternal && (
@@ -593,13 +593,13 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
                         </Badge>
                       )}
                     </div>
-                    <p className="mt-1 text-gray-700 whitespace-pre-wrap">{comment.content}</p>
+                    <p className="mt-1 text-foreground whitespace-pre-wrap">{comment.content}</p>
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-gray-500 text-center py-4">No comments yet</p>
+            <p className="text-muted-foreground text-center py-4">No comments yet</p>
           )}
 
           {/* Add Comment Form */}
@@ -613,9 +613,9 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
             <div className="space-y-3">
               {/* Selected files display */}
               {selectedFiles.length > 0 && (
-                <div className="bg-gray-50 p-2 rounded border border-gray-200">
+                <div className="bg-secondary/40 p-2 rounded border border-border">
                   <h4 className="text-sm font-medium mb-1">Selected Files:</h4>
-                  <ul className="text-xs text-gray-600">
+                  <ul className="text-xs text-muted-foreground">
                     {selectedFiles.map((file, index) => (
                       <li key={index} className="flex items-center justify-between py-1">
                         <span>{file.name} ({(file.size / 1024).toFixed(1)} KB)</span>
@@ -640,9 +640,9 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
                     id="internal-comment"
                     checked={isInternalComment}
                     onChange={(e) => setIsInternalComment(e.target.checked)}
-                    className="rounded border-gray-300"
+                    className="rounded border-border"
                   />
-                  <label htmlFor="internal-comment" className="text-sm text-gray-600">
+                  <label htmlFor="internal-comment" className="text-sm text-muted-foreground">
                     Mark as internal comment
                   </label>
                 </div>
@@ -689,9 +689,9 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
             <div className="space-y-4 animate-pulse">
               {[...Array(5)].map((_, i) => (
                 <div key={i} className="flex space-x-4">
-                  <div className="h-4 w-4 mt-1 bg-gray-200 rounded-full"></div>
+                  <div className="h-4 w-4 mt-1 bg-secondary rounded-full"></div>
                   <div className="flex-1">
-                    <div className="h-4 bg-gray-200 rounded w-full"></div>
+                  <div className="h-4 bg-secondary rounded w-full"></div>
                   </div>
                 </div>
               ))}
@@ -700,15 +700,15 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
             <div className="space-y-3">
               {activityLogs.map((log) => (
                 <div key={log.id} className="flex space-x-3 text-sm">
-                  <div className="h-2 w-2 mt-1.5 bg-gray-400 rounded-full"></div>
+                  <div className="h-2 w-2 mt-1.5 bg-muted-foreground rounded-full"></div>
                   <div>
                     <span className="font-medium"><UserName userId={log.userId} /></span>
-                    <span className="text-gray-600"> {formatActivityAction(log.action)} </span>
-                    <span className="text-gray-500 text-xs">
+                    <span className="text-muted-foreground"> {formatActivityAction(log.action)} </span>
+                    <span className="text-muted-foreground text-xs">
                       ({formatDate(log.createdAt)})
                     </span>
                     {log.action === "updated" && typeof log.details === 'object' && (
-                      <div className="ml-5 mt-1 text-xs text-gray-600">
+                      <div className="ml-5 mt-1 text-xs text-muted-foreground">
                         {formatActivityDetails(log.details as any)}
                       </div>
                     )}
@@ -717,7 +717,7 @@ export function TicketDetail({ ticketId }: TicketDetailProps) {
               ))}
             </div>
           ) : (
-            <p className="text-gray-500 text-center py-4">No activity recorded</p>
+            <p className="text-muted-foreground text-center py-4">No activity recorded</p>
           )}
         </CardContent>
       </Card>
@@ -733,7 +733,7 @@ function StatusBadge({ status }: { status: string }) {
     in_progress: "bg-purple-100 text-purple-800 border-purple-200",
     pending: "bg-amber-100 text-amber-800 border-amber-200",
     resolved: "bg-green-100 text-green-800 border-green-200",
-    closed: "bg-gray-100 text-gray-800 border-gray-200",
+    closed: "bg-muted/40 text-muted-foreground border-border",
   };
 
   const displayNames: { [key: string]: string } = {
@@ -747,7 +747,7 @@ function StatusBadge({ status }: { status: string }) {
   return (
     <Badge 
       variant="outline" 
-      className={`${statusColors[status] || "bg-gray-100 text-gray-800 border-gray-200"}`}
+      className={`${statusColors[status] || "bg-muted/40 text-muted-foreground border-border"}`}
     >
       {displayNames[status] || status}
     </Badge>
@@ -765,7 +765,7 @@ function PriorityBadge({ priority }: { priority: string }) {
   return (
     <Badge 
       variant="outline" 
-      className={`${priorityColors[priority] || "bg-gray-100 text-gray-800 border-gray-200"} capitalize`}
+      className={`${priorityColors[priority] || "bg-muted/40 text-muted-foreground border-border"} capitalize`}
     >
       {priority}
     </Badge>

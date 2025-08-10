@@ -44,7 +44,7 @@ export default function TeamPage() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-semibold text-gray-900 flex items-center">
+        <h1 className="text-2xl font-semibold text-foreground flex items-center">
           <Users className="mr-2 h-6 w-6" />
           Team Performance
         </h1>
@@ -53,33 +53,33 @@ export default function TeamPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">Team Members</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">Team Members</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{users?.length || 0}</div>
-            <p className="text-xs text-gray-500 mt-1">Active support agents</p>
+            <p className="text-xs text-muted-foreground mt-1">Active support agents</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">Avg. Resolution Rate</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">Avg. Resolution Rate</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
               {isLoading ? "..." : calculateResolutionRate(teamPerformance)}%
             </div>
-            <p className="text-xs text-gray-500 mt-1">Tickets resolved vs assigned</p>
+            <p className="text-xs text-muted-foreground mt-1">Tickets resolved vs assigned</p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-gray-500">Avg. Response Time</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">Avg. Response Time</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
               {isLoading ? "..." : calculateAvgResponseTime(teamPerformance)} hrs
             </div>
-            <p className="text-xs text-gray-500 mt-1">Across all team members</p>
+            <p className="text-xs text-muted-foreground mt-1">Across all team members</p>
           </CardContent>
         </Card>
       </div>
@@ -129,17 +129,17 @@ export default function TeamPage() {
               {[...Array(3)].map((_, i) => (
                 <div key={i} className="flex flex-col sm:flex-row sm:items-center gap-4 p-4 border rounded-md">
                   <div className="flex items-center gap-4 mb-4 sm:mb-0">
-                    <div className="h-12 w-12 bg-gray-200 rounded-full"></div>
+                    <div className="h-12 w-12 bg-secondary rounded-full"></div>
                     <div>
-                      <div className="h-5 bg-gray-200 rounded w-32 mb-1"></div>
-                      <div className="h-4 bg-gray-200 rounded w-24"></div>
+                      <div className="h-5 bg-secondary rounded w-32 mb-1"></div>
+                      <div className="h-4 bg-secondary rounded w-24"></div>
                     </div>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-4 flex-1">
-                    <div className="h-6 bg-gray-200 rounded"></div>
-                    <div className="h-6 bg-gray-200 rounded"></div>
-                    <div className="h-6 bg-gray-200 rounded"></div>
-                    <div className="h-6 bg-gray-200 rounded"></div>
+                    <div className="h-6 bg-secondary rounded"></div>
+                    <div className="h-6 bg-secondary rounded"></div>
+                    <div className="h-6 bg-secondary rounded"></div>
+                    <div className="h-6 bg-secondary rounded"></div>
                   </div>
                 </div>
               ))}
@@ -147,7 +147,7 @@ export default function TeamPage() {
           ) : teamPerformance && teamPerformance.length > 0 ? (
             <div className="space-y-6">
               {teamPerformance.map((member) => (
-                <div key={member.userId} className="flex flex-col sm:flex-row sm:items-center gap-4 p-4 border rounded-md hover:border-primary-200 hover:shadow-sm transition-all">
+                <div key={member.userId} className="flex flex-col sm:flex-row sm:items-center gap-4 p-4 border rounded-md hover:border-primary/50 hover:shadow-sm transition-all bg-card">
                   <div className="flex items-center gap-4 mb-4 sm:mb-0">
                     <Avatar className="h-12 w-12">
                       <AvatarImage src={member.avatarUrl || `https://ui-avatars.com/api/?name=${encodeURIComponent(member.userName)}&background=0D8ABC&color=fff`} />
@@ -155,34 +155,34 @@ export default function TeamPage() {
                     </Avatar>
                     <div>
                       <h3 className="font-medium">{member.userName}</h3>
-                      <p className="text-sm text-gray-500 capitalize">{member.userRole}</p>
+                      <p className="text-sm text-muted-foreground capitalize">{member.userRole}</p>
                     </div>
                   </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-4 flex-1">
                     <div className="flex flex-col">
-                      <div className="text-sm text-gray-500 flex items-center mb-1">
+                      <div className="text-sm text-muted-foreground flex items-center mb-1">
                         <CheckCircle className="w-4 h-4 mr-1" />
                         Assigned
                       </div>
                       <div className="font-semibold">{member.assigned}</div>
                     </div>
                     <div className="flex flex-col">
-                      <div className="text-sm text-gray-500 flex items-center mb-1">
+                      <div className="text-sm text-muted-foreground flex items-center mb-1">
                         <CheckCircle className="w-4 h-4 mr-1" />
                         Resolved
                       </div>
                       <div className="font-semibold">{member.resolved}</div>
                     </div>
                     <div className="flex flex-col">
-                      <div className="text-sm text-gray-500 flex items-center mb-1">
+                      <div className="text-sm text-muted-foreground flex items-center mb-1">
                         <Clock className="w-4 h-4 mr-1" />
                         Response Time
                       </div>
                       <div className="font-semibold">{member.averageResponseTime}h</div>
                     </div>
                     <div className="flex flex-col">
-                      <div className="text-sm text-gray-500 flex items-center mb-1">
+                      <div className="text-sm text-muted-foreground flex items-center mb-1">
                         <Star className="w-4 h-4 mr-1" />
                         Satisfaction
                       </div>
@@ -194,9 +194,9 @@ export default function TeamPage() {
             </div>
           ) : (
             <div className="text-center py-12">
-              <Users className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-              <h3 className="text-lg font-medium text-gray-900">No team members found</h3>
-              <p className="text-gray-500 mt-2">
+              <Users className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
+              <h3 className="text-lg font-medium text-foreground">No team members found</h3>
+              <p className="text-muted-foreground mt-2">
                 Add team members to start tracking performance
               </p>
             </div>

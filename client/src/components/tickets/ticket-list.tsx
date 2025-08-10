@@ -150,9 +150,9 @@ export function TicketList({ tickets, isLoading }: TicketListProps) {
           <CardTitle>Tickets</CardTitle>
           {/* Filter controls skeleton */}
           <div className="flex flex-col sm:flex-row gap-4 mt-4 animate-pulse">
-            <div className="w-full sm:w-60 h-10 bg-gray-200 rounded"></div>
-            <div className="w-full sm:w-60 h-10 bg-gray-200 rounded"></div>
-            <div className="w-full sm:w-60 h-10 bg-gray-200 rounded"></div>
+            <div className="w-full sm:w-60 h-10 bg-secondary rounded"></div>
+            <div className="w-full sm:w-60 h-10 bg-secondary rounded"></div>
+            <div className="w-full sm:w-60 h-10 bg-secondary rounded"></div>
           </div>
         </CardHeader>
         <CardContent>
@@ -162,14 +162,14 @@ export function TicketList({ tickets, isLoading }: TicketListProps) {
               <div key={`ticket-skeleton-${index}`} className="p-4 border rounded-md animate-pulse">
                 <div className="flex justify-between">
                   <div className="space-y-2">
-                    <div className="h-5 bg-gray-200 rounded w-40"></div>
-                    <div className="h-4 bg-gray-200 rounded w-24"></div>
+                    <div className="h-5 bg-secondary rounded w-40"></div>
+                    <div className="h-4 bg-secondary rounded w-24"></div>
                   </div>
                   <div className="space-y-2">
-                    <div className="h-8 w-8 bg-gray-200 rounded-full ml-auto"></div>
+                    <div className="h-8 w-8 bg-secondary rounded-full ml-auto"></div>
                     <div className="flex gap-2">
-                      <div className="h-6 bg-gray-200 rounded w-20"></div>
-                      <div className="h-6 bg-gray-200 rounded w-20"></div>
+                    <div className="h-6 bg-secondary rounded w-20"></div>
+                    <div className="h-6 bg-secondary rounded w-20"></div>
                     </div>
                   </div>
                 </div>
@@ -216,7 +216,7 @@ export function TicketList({ tickets, isLoading }: TicketListProps) {
                       <span className="text-green-500 mr-2">⬤</span> Set to Resolved
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => updateSelectedTicketsStatus('closed')}>
-                      <span className="text-gray-500 mr-2">⬤</span> Set to Closed
+                      <span className="text-muted-foreground mr-2">⬤</span> Set to Closed
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
                 </DropdownMenuContent>
@@ -288,7 +288,7 @@ export function TicketList({ tickets, isLoading }: TicketListProps) {
       <CardContent>
         {filteredTickets.length === 0 ? (
           <div className="text-center p-8">
-            <p className="text-gray-500">No tickets found matching your filters.</p>
+            <p className="text-muted-foreground">No tickets found matching your filters.</p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -314,8 +314,8 @@ export function TicketList({ tickets, isLoading }: TicketListProps) {
                   >
                     <div className="flex flex-col sm:flex-row justify-between">
                       <div>
-                        <h3 className="font-medium text-gray-900">{ticket.title}</h3>
-                        <p className="text-sm text-gray-500">
+                        <h3 className="font-medium text-foreground">{ticket.title}</h3>
+                        <p className="text-sm text-muted-foreground">
                           {ticket.ticketNumber} • Created {formatRelativeTime(ticket.createdAt)}
                         </p>
                       </div>
@@ -381,17 +381,17 @@ function getStatusDisplayName(status: string): string {
 // Status badge component
 function StatusBadge({ status }: { status: string }) {
   const statusColors: { [key: string]: string } = {
-    open: "bg-blue-100 text-blue-800 border-blue-200",
-    in_progress: "bg-purple-100 text-purple-800 border-purple-200",
-    pending: "bg-amber-100 text-amber-800 border-amber-200",
-    resolved: "bg-green-100 text-green-800 border-green-200",
-    closed: "bg-gray-100 text-gray-800 border-gray-200",
+    open: "bg-blue-500/15 text-blue-300 border border-blue-400/30",
+    in_progress: "bg-purple-500/15 text-purple-300 border border-purple-400/30",
+    pending: "bg-amber-500/15 text-amber-300 border border-amber-400/30",
+    resolved: "bg-green-500/15 text-green-300 border border-green-400/30",
+    closed: "bg-muted/40 text-muted-foreground border border-border",
   };
 
   return (
     <Badge 
       variant="outline" 
-      className={`${statusColors[status] || "bg-gray-100 text-gray-800 border-gray-200"}`}
+      className={`${statusColors[status] || "bg-muted/40 text-muted-foreground border-border"}`}
     >
       {getStatusDisplayName(status)}
     </Badge>
@@ -401,16 +401,16 @@ function StatusBadge({ status }: { status: string }) {
 // Priority badge component
 function PriorityBadge({ priority }: { priority: string }) {
   const priorityColors: { [key: string]: string } = {
-    urgent: "bg-red-100 text-red-800 border-red-200",
-    high: "bg-orange-100 text-orange-800 border-orange-200",
-    medium: "bg-yellow-100 text-yellow-800 border-yellow-200",
-    low: "bg-green-100 text-green-800 border-green-200",
+    urgent: "bg-red-500/15 text-red-300 border border-red-400/30",
+    high: "bg-orange-500/15 text-orange-300 border border-orange-400/30",
+    medium: "bg-yellow-500/15 text-yellow-300 border border-yellow-400/30",
+    low: "bg-green-500/15 text-green-300 border border-green-400/30",
   };
 
   return (
     <Badge 
       variant="outline" 
-      className={`${priorityColors[priority] || "bg-gray-100 text-gray-800 border-gray-200"} capitalize`}
+      className={`${priorityColors[priority] || "bg-muted/40 text-muted-foreground border-border"} capitalize`}
     >
       {priority}
     </Badge>

@@ -55,9 +55,9 @@ export function SlaBadge({ slaStatus, slaDeadline, slaPaused = false, size = 'md
         };
       case 'paused':
         return {
-          bgColor: 'bg-gray-100',
-          textColor: 'text-gray-800',
-          borderColor: 'border-gray-200',
+          bgColor: 'bg-secondary',
+          textColor: 'text-foreground',
+          borderColor: 'border-border',
           icon: <PauseCircle className={size === 'sm' ? 'w-3 h-3 mr-1' : 'w-4 h-4 mr-1.5'} />,
           label: 'Paused',
           tooltip: 'SLA timer is paused'
@@ -73,9 +73,9 @@ export function SlaBadge({ slaStatus, slaDeadline, slaPaused = false, size = 'md
         };
       default:
         return {
-          bgColor: 'bg-gray-100',
-          textColor: 'text-gray-800',
-          borderColor: 'border-gray-200',
+          bgColor: 'bg-secondary',
+          textColor: 'text-foreground',
+          borderColor: 'border-border',
           icon: <Clock className={size === 'sm' ? 'w-3 h-3 mr-1' : 'w-4 h-4 mr-1.5'} />,
           label: 'No SLA',
           tooltip: 'No SLA information available'
@@ -86,9 +86,9 @@ export function SlaBadge({ slaStatus, slaDeadline, slaPaused = false, size = 'md
   // Override with paused state if slaPaused is true
   const styles = slaPaused 
     ? {
-        bgColor: 'bg-gray-100',
-        textColor: 'text-gray-800',
-        borderColor: 'border-gray-200',
+        bgColor: 'bg-secondary',
+        textColor: 'text-foreground',
+        borderColor: 'border-border',
         icon: <PauseCircle className={size === 'sm' ? 'w-3 h-3 mr-1' : 'w-4 h-4 mr-1.5'} />,
         label: 'Paused',
         tooltip: 'SLA timer is paused'
